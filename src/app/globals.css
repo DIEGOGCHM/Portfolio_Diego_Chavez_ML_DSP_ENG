@@ -3,25 +3,72 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F5F5F5;
+  --foreground: #111111;
+
+  --black_core: #F5F5F5;
+  --black_layer: #EAEAEA;
+  --gray_interference: #D4D4D4;
+  --gray_signal: #A3A3A3;
+  --white_clinical: #111111;
+  --white_faded: #555555;
+  --green_signal: #7c8c9a;
+  --amber_decay: #FF4500;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+[data-theme='terminal'] {
+  --background: #000000;
+  --foreground: #EDEDED;
+  
+  --black_core: #000000;
+  --black_layer: #0D0D0D;
+  --gray_interference: #1A1A1A;
+  --gray_signal: #2A2A2A;
+  --white_clinical: #EDEDED;
+  --white_faded: #A8A8A8;
+  --green_signal: #6BFFB0;
+  --amber_decay: #C2A36B;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-mono), monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Custom Selection */
+::selection {
+  background-color: var(--green_signal);
+  color: var(--black_core);
+}
+
+/* Custom Scrollbar for a more instrument-like feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--black_layer);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray_interference);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray_signal);
+}
+
+/* Force Custom Cursor System-Wide */
+* {
+  cursor: none !important;
+}
+
+/* Remove default link styling */
+a {
+  color: inherit;
+  text-decoration: none;
 }
