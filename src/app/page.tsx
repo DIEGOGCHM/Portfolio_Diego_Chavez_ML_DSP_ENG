@@ -2,7 +2,6 @@ import { HeroCanvas } from "@/components/HeroCanvas";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
-import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 
 export default function Home() {
@@ -28,7 +27,7 @@ export default function Home() {
 
           <div className="relative z-10 flex flex-col gap-6 md:gap-12">
             <About />
-            <FAQ />
+            <Skills />
             <Projects />
             <Contact />
           </div>

@@ -1,64 +1,86 @@
-import React from "react";
-import { Panel } from "./Panel";
+"use client";
+
+import React, { useState } from "react";
+
+const aboutData = [
+  {
+    q: "Author Metadata",
+    a: "Diego Guillermo Chávez Muñoz. Audio and music technology specialist with cross-disciplinary experience in audio machine learning, multimodal systems, dataset curation, and sound-focused technical production. Graduated with First Class Honours from the University of Hull (UK) and completing his BSc in Technology and Music Production at Tecnológico de Monterrey."
+  },
+  {
+    q: "Experience Highlights",
+    a: "Bridging applied ML, DSP thinking, and creative audio engineering. Experience includes Dolby Atmos mixing & Music Supervision, Applied Audio ML Prototyping (PyTorch, CLAP, Stable Audio), Embedded systems & Electromechanical art installations, and Audio dataset curation for contrastive learning."
+  },
+  {
+    q: "Core Focus",
+    a: "Audio ML & Multimodal Retrieval, Embedded Audio & Electromechanical Integration, Dolby Atmos Mixing & Immersive Audio, and Audio Dataset Design for Contrastive Models."
+  },
+  {
+    q: "Direction & Goal",
+    a: "Committed to pushing the boundaries of spatial and generative audio workflows through perceptual audio feature integration, privacy-focused local-first workflows, and empirical human evaluation methodologies. The long-term goal is to research and deploy real-time audio AI systems in collaborative R&D environments."
+  }
+];
 
 export default function About() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   return (
-    <section id="about" className="grid grid-cols-12 gap-6 w-full">
-      <div className="col-span-12 md:col-span-6 flex flex-col gap-6">
-        <Panel title="AUTHOR METADATA">
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col xl:flex-row gap-6 items-stretch">
-              <div className="h-48 sm:h-auto sm:w-32 md:w-48 bg-gray_interference border border-gray_signal flex-shrink-0 overflow-hidden relative">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/Retrato.jpg" alt="Diego Guillermo Chávez Muñoz" className="absolute inset-0 w-full h-full object-cover grayscale contrast-125 object-top" />
-              </div>
+    <section id="about" className="w-full bg-white text-black py-24 px-6 md:px-12 xl:px-24 rounded-lg my-12 shadow-2xl">
+      <div className="grid grid-cols-12 gap-12 max-w-6xl mx-auto">
+        
+        {/* Left Menu: Fading List */}
+        <div className="col-span-12 md:col-span-5 flex flex-col justify-center">
+          <div className="flex flex-col gap-6 relative font-sans">
+            {aboutData.map((item, idx) => {
+              const distance = Math.abs(idx - activeIndex);
+              
+              let styleClass = "opacity-100 scale-100 font-bold text-black";
+              if (distance === 1) styleClass = "opacity-40 scale-95 text-gray-700 font-medium";
+              if (distance === 2) styleClass = "opacity-20 scale-90 text-gray-500 blur-[1px]";
+              if (distance > 2) styleClass = "opacity-10 scale-90 text-gray-400 blur-[2px]";
 
-              <div className="flex-1 flex flex-col justify-center gap-4">
-                <h2 className="text-lg text-white_clinical font-bold leading-tight">Diego Guillermo Chávez Muñoz</h2>
-                <div className="text-sm text-white_faded leading-relaxed">
-                  <p>Audio and music technology specialist with cross-disciplinary experience in audio machine learning, multimodal systems, dataset curation, and sound-focused technical production. Graduated with First Class Honours from the University of Hull (UK) and completing his BSc in Technology and Music Production at Tecnológico de Monterrey. Focuses on bridging applied ML, DSP thinking, and creative audio engineering.</p>
+              const isActive = idx === activeIndex;
+
+              return (
+                <div 
+                  key={idx} 
+                  onClick={() => setActiveIndex(idx)}
+                  className={`cursor-pointer transition-all duration-500 ease-out flex items-center justify-between group origin-left ${styleClass}`}
+                >
+                  <h3 className={`text-base md:text-lg transition-colors`}>
+                    {item.q}
+                  </h3>
+                  {isActive && (
+                    <span className="text-black font-sans font-black text-sm ml-4">
+                      ↑ ↓
+                    </span>
+                  )}
                 </div>
-              </div>
+              );
+            })}
+          </div>
+        </div>
+        
+        {/* Right Side: Terminal Window Style */}
+        <div className="col-span-12 md:col-span-7 flex flex-col justify-center">
+          
+          <div className="flex flex-col bg-white border border-[#EAEAEA] rounded-md shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] overflow-hidden">
+            {/* IN Section */}
+            <div className="flex gap-4 border-b border-[#EAEAEA] p-6 md:p-8">
+               <span className="text-gray-400 font-mono text-sm tracking-widest">IN:</span>
+               <span className="uppercase text-black font-mono text-sm tracking-wider">{aboutData[activeIndex].q}</span>
             </div>
-
-            <div className="space-y-4 text-sm text-white_faded">
-              <div className="border-t border-gray_interference pt-4">
-                <span className="block text-gray_signal uppercase text-xs mb-2 tracking-widest">Experience Includes:</span>
-                <ul className="list-disc list-inside space-y-1">
-                  <li>Dolby Atmos mixing & Music Supervision</li>
-                  <li>Applied Audio ML Prototyping (PyTorch, CLAP, Stable Audio)</li>
-                  <li>Embedded systems & Electromechanical art installations</li>
-                  <li>Audio dataset curation for contrastive learning</li>
-                </ul>
-              </div>
+            
+            {/* OUT Section */}
+            <div className="flex gap-4 p-6 md:p-8 min-h-[200px]">
+               <span className="text-gray-400 font-mono text-sm tracking-widest">OUT:</span>
+               <span className="font-serif text-black leading-relaxed text-base md:text-lg animate-in fade-in duration-500">
+                 {aboutData[activeIndex].a}
+               </span>
             </div>
           </div>
-        </Panel>
-      </div>
+        </div>
 
-      <div className="col-span-12 md:col-span-6 flex flex-col gap-6">
-        <Panel title="FOCUS" status="active">
-          <ul className="space-y-2 text-sm text-white_clinical font-mono">
-            <li className="border-l-2 border-green_signal pl-3">Audio ML & Multimodal Retrieval</li>
-            <li className="border-l-2 border-green_signal pl-3">Embedded Audio & Electromechanical Integration</li>
-            <li className="border-l-2 border-green_signal pl-3">Dolby Atmos Mixing & Immersive Audio</li>
-            <li className="border-l-2 border-green_signal pl-3">Audio Dataset Design for Contrastive Models</li>
-          </ul>
-        </Panel>
-
-        <Panel title="DIRECTION & GOAL">
-          <div className="space-y-4 text-sm text-white_faded leading-relaxed">
-            <p>Committed to pushing the boundaries of spatial and generative audio workflows through:</p>
-            <ul className="list-disc list-inside space-y-1 text-white_clinical font-mono bg-black_core p-4 border border-gray_interference text-xs">
-              <li>perceptual audio feature integration (texture, timbre, spatial quality)</li>
-              <li>privacy-focused, local-first workflows for creative professionals</li>
-              <li>empirical human evaluation methodologies for generative audio</li>
-            </ul>
-            <p className="border-l border-green_signal pl-4 pt-2 mt-4 italic text-green_signal">
-              The long-term goal is to research and deploy real-time audio AI systems in collaborative R&D environments.
-            </p>
-          </div>
-        </Panel>
       </div>
     </section>
   );
