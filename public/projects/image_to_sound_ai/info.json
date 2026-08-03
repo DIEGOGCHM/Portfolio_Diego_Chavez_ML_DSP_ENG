@@ -1,0 +1,24 @@
+{
+  "id": "01",
+  "slug": "image_to_sound_ai",
+  "title": "Image-to-Sound AI",
+  "subtitle": "Multimodal AI & Sound Design",
+  "category": "Multimodal Audio Intelligence",
+  "period": "Feb 2026 – May 2026",
+  "type": "Independent / Academic Research",
+  "description": "A standalone multimodal system that transforms cinematic images into structured sound design suggestions using computer vision, language models, CLAP embeddings, and Stable Audio. Features a local-first PySide6 desktop interface.",
+  "longDescription": "Designed and developed an end-to-end multimodal inference pipeline that processes visual inputs to output context-aware sound synthesis and sound effect retrieval suggestions. Integrates CLAP (Contrastive Language-Audio Pretraining) embeddings for semantic audio retrieval and Stable Audio diffusion models for generative synthesis. Employs PySide6 for an intuitive local desktop GUI designed specifically for offline privacy and workflow integration in professional sound design suites.",
+  "tags": [
+    "PyTorch",
+    "CLAP",
+    "Stable Audio",
+    "Computer Vision",
+    "Python",
+    "PySide6"
+  ],
+  "github": "https://github.com/DIEGOGCHM",
+  "demo": null,
+  "link": "/architecture",
+  "color": "bg-green_signal",
+  "coverImage": "/assets/cosmos_59952192.jpeg"
+}

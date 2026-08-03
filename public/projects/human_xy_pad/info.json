@@ -1,0 +1,34 @@
+{
+  "id": "04",
+  "slug": "human_xy_pad",
+  "title": "Human X/Y Pad",
+  "subtitle": "Interactive Expressive Controller & Audio DSP",
+  "category": "Human-Computer Interaction & DSP",
+  "period": "May 2026 – Jul 2026",
+  "type": "Interactive Hardware & Software Project",
+  "description": "An expressive human-computer interaction system that maps spatial motion and gestural input across two-dimensional X/Y boundaries to dynamic DSP audio synthesis and real-time parameters.",
+  "longDescription": "Human X/Y Pad is a physical and gestural control interface that transforms human motion across a two-dimensional X/Y spatial axis into fluid, continuous sound design control and digital signal processing. By capturing real-time positional data, velocity, and pressure dynamics, the system generates continuous parameter curves for spatial panning, filter modulation, wavetable morphing, and generative audio synthesis.",
+  "tags": [
+    "DSP",
+    "Gestural Control",
+    "Audio Synthesis",
+    "Interactive Systems",
+    "Sensors",
+    "Real-Time Audio"
+  ],
+  "github": "https://github.com/DIEGOGCHM",
+  "demo": null,
+  "link": "/human-xy-pad",
+  "color": "bg-cyan_signal",
+  "coverImage": "/projects/human_xy_pad/IMG_8951.JPG",
+  "videoHeader": "/projects/human_xy_pad/promo_video.mp4",
+  "assets": [
+    { "type": "video", "src": "/projects/human_xy_pad/promo_video.mp4" },
+    { "type": "video", "src": "/projects/human_xy_pad/pts_loop.mp4" },
+    { "type": "video", "src": "/projects/human_xy_pad/IMG_9040.mov" },
+    { "type": "image", "src": "/projects/human_xy_pad/IMG_8951.JPG" },
+    { "type": "image", "src": "/projects/human_xy_pad/IMG_8952.JPG" },
+    { "type": "image", "src": "/projects/human_xy_pad/IMG_8953.JPG" },
+    { "type": "image", "src": "/projects/human_xy_pad/IMG_8954.JPG" }
+  ]
+}

@@ -88,6 +88,28 @@ const projects = [
     color: "bg-white_faded",
     image: img1.src
   },
+  {
+    title: "Human X/Y Pad",
+    type: "Interactive Gestural Audio Controller",
+    number: "04",
+    description: "An expressive human-computer interaction system that maps spatial motion and gestural input across two-dimensional X/Y boundaries to dynamic DSP audio synthesis and real-time parameters.",
+    tags: ["DSP", "Gestural Control", "Audio Synthesis", "Interactive Systems", "Sensors"],
+    github: "https://github.com/DIEGOGCHM",
+    demo: null,
+    link: "/human-xy-pad",
+    color: "bg-cyan_signal",
+    image: "/projects/human_xy_pad/IMG_8951.JPG",
+    videoHeader: '/projects/human_xy_pad/promo_video.mp4',
+    assets: [
+        { type: 'video', src: '/projects/human_xy_pad/promo_video.mp4' },
+        { type: 'video', src: '/projects/human_xy_pad/pts_loop.mp4' },
+        { type: 'video', src: '/projects/human_xy_pad/IMG_9040.mov' },
+        { type: 'image', src: '/projects/human_xy_pad/IMG_8951.JPG' },
+        { type: 'image', src: '/projects/human_xy_pad/IMG_8952.JPG' },
+        { type: 'image', src: '/projects/human_xy_pad/IMG_8953.JPG' },
+        { type: 'image', src: '/projects/human_xy_pad/IMG_8954.JPG' }
+    ]
+  }
 ];
 
 // Duplicate the array many times to simulate infinite scroll
@@ -209,7 +231,7 @@ export default function Projects() {
                     <div className={`absolute inset-0 w-full h-full p-2 md:p-4 grid grid-cols-4 grid-rows-2 gap-1 md:gap-2 transition-transform duration-[20s] ease-out ${isActive ? 'scale-105' : 'scale-100'}`}>
                         {/* Get a unique slice of 5 images from the pool for each project (indices swapped for 0 and 2) */}
                         {(() => {
-                            const startIndex = [8, 4, 0][idx];
+                            const startIndex = [8, 4, 2, 0][idx % 4];
                             return [...allImages.slice(startIndex), ...allImages.slice(0, startIndex)].slice(0, 5);
                         })().map((img, i) => {
                             // Perfect 4x2 grid math: 1 large (2x2), 4 small (1x1)
@@ -248,7 +270,7 @@ export default function Projects() {
                         {/* Content Layer (Overview - Sheet 1) */}
                         <div className={`flex flex-col max-w-3xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] w-full ${viewState > 0 && isActive ? 'opacity-0 -translate-y-12 absolute bottom-0 pointer-events-none' : 'opacity-100 translate-y-0 relative pointer-events-auto'}`}>
                             {/* Huge Typography Title */}
-                            <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-black leading-[0.85] mb-8 w-fit drop-shadow-sm">
+                            <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white_clinical leading-[0.85] mb-8 w-fit drop-shadow-sm">
                                 {project.title}
                             </h2>
 
@@ -285,19 +307,19 @@ export default function Projects() {
                         {/* Content Layer (Detail View - Sheet 2) */}
                         <div className={`absolute bottom-0 left-0 p-6 md:p-16 flex flex-col max-w-4xl transition-all duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] w-full ${viewState === 1 && isActive ? 'opacity-100 translate-y-0 pointer-events-auto z-40' : (viewState === 2 ? 'opacity-0 -translate-y-12 pointer-events-none z-0' : 'opacity-0 translate-y-12 pointer-events-none z-0')}`}>
                             {/* Smaller Typography Title for Detail */}
-                            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-black leading-[0.85] mb-6 w-fit drop-shadow-sm">
+                            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white_clinical leading-[0.85] mb-6 w-fit drop-shadow-sm">
                                 {project.title} {'//'} EXTENDED DATA
                             </h2>
                             
                             <div className="bg-black_core/70 backdrop-blur-md border border-gray_interference p-6 md:p-8 flex flex-col gap-6 text-white_clinical font-mono text-sm shadow-2xl font-medium pointer-events-auto">
                                 <div className="flex items-center gap-4 border-b border-gray_interference pb-4">
                                     <span className="text-green_signal uppercase tracking-widest text-xs font-bold">SYSTEM.LOG {'//'} {project.number}</span>
-                                    <span className="text-black font-bold uppercase tracking-widest text-xs">{project.type}</span>
+                                    <span className="text-white_clinical font-bold uppercase tracking-widest text-xs">{project.type}</span>
                                 </div>
                                 <p className="leading-relaxed">
                                     {project.description}
                                 </p>
-                                <p className="leading-relaxed text-black/70">
+                                <p className="leading-relaxed text-white_clinical/70">
                                     (Extended information, architecture schematics, and functional walkthroughs can be injected here for {project.title}. This overlay maintains the immersive background context while providing deeper technical insights natively inside the carousel.)
                                 </p>
                                 <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray_interference">
@@ -313,7 +335,7 @@ export default function Projects() {
                                     <div className="mt-4">
                                         <button 
                                             onClick={() => setViewState(2)} 
-                                            className="inline-flex items-center gap-2 bg-white_clinical text-white px-6 py-3 font-mono text-xs uppercase tracking-widest font-bold hover:bg-green_signal transition-colors w-fit border-none cursor-pointer outline-none"
+                                            className="inline-flex items-center gap-2 bg-white_clinical text-black_core px-6 py-3 font-mono text-xs uppercase tracking-widest font-bold hover:bg-green_signal transition-colors w-fit border-none cursor-pointer outline-none"
                                         >
                                             Show Visual Gallery
                                             <ExternalLinkIcon />
@@ -338,7 +360,7 @@ export default function Projects() {
                                 )}
                                 
                                 <div className="relative z-20 flex flex-col items-center justify-center text-center">
-                                    <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-black leading-[0.85] mb-6 drop-shadow-sm mix-blend-difference text-white">
+                                    <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white leading-[0.85] mb-6 drop-shadow-sm mix-blend-difference">
                                         {project.title}
                                     </h2>
                                     <p className="text-white mix-blend-difference uppercase tracking-widest font-bold text-xs md:text-sm">
@@ -382,7 +404,7 @@ export default function Projects() {
                             else if (viewState === 1) setViewState(0);
                             else if (viewState === 2) setViewState(1);
                         }} 
-                        className={`absolute bottom-6 md:bottom-16 right-6 md:right-16 pointer-events-auto text-black hover:text-green_signal transition-all duration-300 group flex items-center gap-4 cursor-pointer outline-none bg-transparent border-none drop-shadow-sm ${viewState === 2 ? 'z-50 text-foreground mix-blend-difference !text-white' : 'z-40'}`}
+                        className={`absolute bottom-6 md:bottom-16 right-6 md:right-16 pointer-events-auto text-white_clinical hover:text-green_signal transition-all duration-300 group flex items-center gap-4 cursor-pointer outline-none bg-transparent border-none drop-shadow-sm ${viewState === 2 ? 'z-50 text-foreground mix-blend-difference !text-white' : 'z-40'}`}
                     >
                         {viewState > 0 ? (
                             <>

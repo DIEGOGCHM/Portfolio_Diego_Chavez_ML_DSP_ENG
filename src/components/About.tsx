@@ -85,17 +85,29 @@ export default function About() {
       ref={containerRef}
       className="w-full bg-transparent text-white_clinical h-[400vh]"
     >
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden px-6 md:px-12 xl:px-24">
-        <div className="grid grid-cols-12 gap-12 max-w-6xl mx-auto w-full">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden px-4 sm:px-6 md:px-12 xl:px-24">
+        <div className="grid grid-cols-12 gap-6 md:gap-12 max-w-6xl mx-auto w-full">
           
           {/* Left Menu: Scrolling List */}
-          <div className="col-span-12 md:col-span-5 flex flex-col pt-8">
+          <div className="col-span-12 md:col-span-5 flex flex-col pt-4 md:pt-8">
+            <style jsx>{`
+              .menu-container {
+                height: 140px;
+                --center-offset: 70px;
+              }
+              @media (min-width: 768px) {
+                .menu-container {
+                  height: 300px;
+                  --center-offset: 150px;
+                }
+              }
+            `}</style>
             <div 
-              className="relative h-[300px] w-full"
+              className="relative menu-container w-full"
               style={{ maskImage: "linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)", WebkitMaskImage: "linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)" }}
             >
               {/* STATIC SELECTION INDICATOR */}
-              <div className="absolute right-0 top-[150px] -translate-y-1/2 z-20 pointer-events-none">
+              <div className="absolute right-0 top-[var(--center-offset)] -translate-y-1/2 z-20 pointer-events-none">
                 <span className="font-mono font-black text-sm" style={{ color: "var(--white_clinical)" }}>
                   ↑ ↓
                 </span>
@@ -104,7 +116,7 @@ export default function About() {
               <motion.div 
                 className="absolute w-full"
                 initial={false}
-                animate={{ y: `calc(150px - ${activeIndex * itemHeight}px - ${itemHeight / 2}px)` }}
+                animate={{ y: `calc(var(--center-offset) - ${activeIndex * itemHeight}px - ${itemHeight / 2}px)` }}
                 transition={{ type: "spring", stiffness: 80, damping: 14, mass: 1 }}
               >
                 {aboutData.map((item, idx) => {
@@ -139,8 +151,8 @@ export default function About() {
           </div>
           
           {/* Right Side: Terminal Window Style */}
-          <div className="col-span-12 md:col-span-7 flex flex-col pt-8">
-            <h2 className="text-xl md:text-2xl text-white_clinical mb-6 font-mono tracking-tight">Author Metadata.</h2>
+          <div className="col-span-12 md:col-span-7 flex flex-col pt-0 md:pt-8">
+            <h2 className="text-xl md:text-2xl text-white_clinical mb-4 md:mb-6 font-mono tracking-tight">Author Metadata.</h2>
             
             <motion.div 
               layout 
@@ -148,8 +160,8 @@ export default function About() {
               transition={{ type: "spring", stiffness: 70, damping: 15, mass: 1 }}
             >
               {/* IN Section */}
-              <div className="flex gap-4 border-b border-gray_interference p-6 md:p-8">
-                 <span className="text-gray_signal font-mono text-sm tracking-widest mt-0.5">IN:</span>
+              <div className="flex gap-3 md:gap-4 border-b border-gray_interference p-4 sm:p-6 md:p-8">
+                 <span className="text-gray_signal font-mono text-xs md:text-sm tracking-widest mt-0.5 md:mt-0.5">IN:</span>
                  <AnimatePresence mode="popLayout">
                    <motion.span 
                      key={activeIndex}
@@ -157,7 +169,7 @@ export default function About() {
                      animate={{ opacity: 1, filter: "blur(0px)" }}
                      exit={{ opacity: 0, filter: "blur(4px)", transition: { duration: 0.15 } }}
                      transition={{ duration: 0.4, ease: "easeOut" }}
-                     className="uppercase text-white_clinical font-mono text-sm tracking-wider"
+                     className="uppercase text-white_clinical font-mono text-xs md:text-sm tracking-wider"
                    >
                      {aboutData[activeIndex].q}
                    </motion.span>
@@ -165,8 +177,8 @@ export default function About() {
               </div>
               
               {/* OUT Section */}
-              <motion.div layout className="flex gap-4 p-6 md:p-8">
-                 <span className="text-gray_signal font-mono text-sm tracking-widest mt-1">OUT:</span>
+              <motion.div layout className="flex gap-3 md:gap-4 p-4 sm:p-6 md:p-8">
+                 <span className="text-gray_signal font-mono text-xs md:text-sm tracking-widest mt-1">OUT:</span>
                  <div className="flex-1 relative">
                    <AnimatePresence mode="popLayout">
                      {!isChanging && (
@@ -176,7 +188,7 @@ export default function About() {
                          animate={{ opacity: 1, filter: "blur(0px)" }}
                          exit={{ opacity: 0, filter: "blur(4px)", transition: { duration: 0.15 } }}
                          transition={{ duration: 0.4, ease: "easeOut" }}
-                         className="font-sans text-white_faded leading-relaxed text-base md:text-lg block"
+                         className="font-sans text-white_faded leading-relaxed text-sm md:text-base xl:text-lg block"
                        >
                          {aboutData[displayIndex].a}
                        </motion.span>

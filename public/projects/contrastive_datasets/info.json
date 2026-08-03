@@ -1,0 +1,23 @@
+{
+  "id": "03",
+  "slug": "contrastive_datasets",
+  "title": "Contrastive Datasets",
+  "subtitle": "Dataset Curation & ML Support",
+  "category": "Audio ML Research & Data Curation",
+  "period": "Dec 2025 – Feb 2026",
+  "type": "Independent / Academic Research",
+  "description": "Design, recording, and curation of high-quality audio datasets for training audio-text contrastive models. Includes workflows for cleaning, labeling, and semantic alignment.",
+  "longDescription": "Designed, recorded, and curated specialized high-fidelity audio datasets for training and fine-tuning contrastive audio-text models (such as CLAP). Developed modular processing pipelines for audio cleaning, segmentation, metadata tagging, and semantic text alignment based on critical listening and sound engineering principles.",
+  "tags": [
+    "Dataset Design",
+    "Audio Curation",
+    "Contrastive Learning",
+    "CLAP",
+    "Signal Processing"
+  ],
+  "github": "https://github.com/DIEGOGCHM",
+  "demo": null,
+  "link": "/functions-walkthrough",
+  "color": "bg-white_faded",
+  "coverImage": "/assets/cosmos_1019079168.jpeg"
+}

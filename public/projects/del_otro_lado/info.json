@@ -1,0 +1,25 @@
+{
+  "id": "02",
+  "slug": "del_otro_lado",
+  "title": "Del Otro Lado",
+  "subtitle": "Interactive Art Installation",
+  "category": "Embedded Systems & Sensory Art",
+  "period": "Feb 2026 – Apr 2026",
+  "type": "Independent Project",
+  "description": "An immersive sensory art installation exploring migration and reactive perception. Combines electromechanical automation, Arduino/Raspberry Pi sensor integration, and dynamic narrative soundscapes.",
+  "longDescription": "Designed and developed an immersive interactive installation exploring themes of migration, cultural displacement, and reactive perception through narrative sound design and multisensory interaction. The project combined embedded hardware systems (Arduino, Raspberry Pi), reactive soundscapes, and electromechanical automation to create emotionally driven experiences centered around discomfort, immersion, and audience participation.",
+  "tags": [
+    "Arduino",
+    "Raspberry Pi",
+    "Embedded",
+    "Sound Design",
+    "Sensors",
+    "Electromechanical"
+  ],
+  "github": "https://github.com/DIEGOGCHM",
+  "demo": null,
+  "link": "/del-otro-lado",
+  "color": "bg-amber_decay",
+  "coverImage": "/projects/del_otro_lado/FullSizeRender.jpeg",
+  "videoHeader": "/projects/del_otro_lado/20260306220654230.MP4"
+}
