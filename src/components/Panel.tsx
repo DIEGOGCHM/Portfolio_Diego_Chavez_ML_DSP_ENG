@@ -10,7 +10,7 @@ interface PanelProps {
 
 export function Panel({ children, title, className = "", status, noPadding = false }: PanelProps) {
   return (
-    <div className={`border border-gray_interference bg-[#111111]/80 backdrop-blur-md shadow-2xl flex flex-col ${className}`}>
+    <div className={`border border-gray_interference bg-black_layer flex flex-col ${className}`}>
       {title && (
         <div className="border-b border-gray_interference bg-gray_interference/30 px-3 py-1.5 flex justify-between items-center text-xs text-white_faded">
           <span className="uppercase tracking-widest">{title}</span>
