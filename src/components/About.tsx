@@ -35,8 +35,8 @@ export default function About() {
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Map latest (0 to 1) to an index (0 to aboutData.length - 1)
     let idx = Math.floor(latest * aboutData.length);
+    if (isNaN(idx)) idx = 0;
     if (idx >= aboutData.length) idx = aboutData.length - 1;
     if (idx < 0) idx = 0;
 
