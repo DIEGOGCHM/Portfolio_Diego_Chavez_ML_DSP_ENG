@@ -52,7 +52,7 @@ export function HeroCanvas() {
             c.width = w + 4;
             c.height = 16;
             ctx.font = "12px monospace";
-            ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+            ctx.fillStyle = "rgba(17, 17, 17, 0.95)"; // Black letters to match the light theme
             ctx.fillText(text, 0, 12);
             return c;
         });
@@ -260,11 +260,11 @@ export function HeroCanvas() {
         <div ref={containerRef} className="w-full h-[300vh] relative bg-transparent">
             {/* Sticky wrapper to keep canvas in view while scrolling through the 300vh */}
             <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center pointer-events-none">
-                <canvas ref={canvasRef} className="absolute inset-0 w-full h-full mix-blend-difference" />
+                <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
             </div>
             
             {/* Scroll Indicator */}
-            <div ref={indicatorRef} className="fixed bottom-12 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 mix-blend-difference pointer-events-none transition-opacity duration-75">
+            <div ref={indicatorRef} className="fixed bottom-12 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 pointer-events-none transition-opacity duration-75">
                 <span className="text-white_clinical text-[10px] font-mono uppercase tracking-[0.2em]">Scroll to Initialize</span>
                 <div className="w-[1px] h-12 bg-gradient-to-b from-white_clinical to-transparent animate-pulse" />
             </div>
