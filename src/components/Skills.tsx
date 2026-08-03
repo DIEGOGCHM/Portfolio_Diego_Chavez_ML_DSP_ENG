@@ -105,9 +105,9 @@ export default function Skills() {
       id="skills" 
       className="w-full bg-transparent text-white_clinical py-32 md:py-48 overflow-hidden font-mono"
     >
-      <div className="max-w-5xl mx-auto px-6 md:px-12 xl:px-24">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-24">
         
-        <div className="flex flex-col gap-10 md:gap-14">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 xl:gap-x-24 gap-y-10 md:gap-y-14">
           {skillsData.map((item, idx) => (
             <SkillRow key={idx} item={item} />
           ))}
