@@ -73,6 +73,13 @@ export default function About() {
             className="relative h-[300px] w-full"
             style={{ maskImage: "linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)", WebkitMaskImage: "linear-gradient(to bottom, transparent, black 15%, black 85%, transparent)" }}
           >
+            {/* STATIC SELECTION INDICATOR */}
+            <div className="absolute right-0 top-[150px] -translate-y-1/2 z-20 pointer-events-none">
+              <span className="font-mono font-black text-sm" style={{ color: "var(--white_clinical)" }}>
+                ↑ ↓
+              </span>
+            </div>
+
             <motion.div 
               className="absolute w-full"
               initial={false}
@@ -103,20 +110,6 @@ export default function About() {
                     >
                       {item.q}
                     </motion.h3>
-                    <AnimatePresence>
-                      {isActive && (
-                        <motion.span 
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="font-mono font-black text-sm ml-4"
-                          style={{ color: "var(--white_clinical)" }}
-                        >
-                          ↑ ↓
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
                   </motion.div>
                 );
               })}
