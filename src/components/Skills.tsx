@@ -67,10 +67,10 @@ export default function Skills() {
   const itemHeight = 64; 
 
   const itemVariants = {
-    active: { opacity: 1, filter: "blur(0px)", color: "#FFFFFF", fontWeight: 700, scale: 1 },
-    next1: { opacity: 0.5, filter: "blur(2px)", color: "#A0A0A0", fontWeight: 500, scale: 0.95 },
-    next2: { opacity: 0.2, filter: "blur(4px)", color: "#666666", fontWeight: 400, scale: 0.9 },
-    hidden: { opacity: 0, filter: "blur(8px)", scale: 0.8 }
+    active: { opacity: 1, filter: "blur(0px)", scale: 1, transition: { duration: 0.3 } },
+    next1: { opacity: 0.5, filter: "blur(2px)", scale: 0.95, transition: { duration: 0.3 } },
+    next2: { opacity: 0.2, filter: "blur(4px)", scale: 0.9, transition: { duration: 0.3 } },
+    hidden: { opacity: 0, filter: "blur(8px)", scale: 0.8, transition: { duration: 0.3 } }
   };
 
   return (
@@ -93,7 +93,7 @@ export default function Skills() {
               className="absolute w-full"
               initial={false}
               animate={{ y: `calc(150px - ${activeIndex * itemHeight}px - ${itemHeight / 2}px)` }}
-              transition={{ type: "spring", stiffness: 200, damping: 25 }}
+              transition={{ type: "spring", stiffness: 120, damping: 20, mass: 1 }}
             >
               {skillsData.map((item, idx) => {
                 const distance = Math.abs(idx - activeIndex);
@@ -103,6 +103,7 @@ export default function Skills() {
                 else if (distance === 2) state = "next2";
 
                 const isActive = idx === activeIndex;
+                const fontClass = isActive ? "font-bold text-white_clinical" : "font-medium text-white_faded";
 
                 return (
                   <motion.div 
@@ -111,18 +112,18 @@ export default function Skills() {
                     variants={itemVariants}
                     initial={false}
                     animate={state}
-                    transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                    className="h-[64px] cursor-pointer flex items-center justify-between group origin-left"
+                    whileHover={!isActive ? { opacity: 0.8, filter: "blur(0px)", scale: 0.98, transition: { duration: 0.2 } } : {}}
+                    className={`h-[64px] cursor-pointer flex items-center justify-between group origin-left ${fontClass}`}
                   >
-                    <h3 className="text-base md:text-lg font-mono">
+                    <h3 className="text-base md:text-lg font-mono transition-colors duration-300">
                       {item.q}
                     </h3>
                     <AnimatePresence>
                       {isActive && (
                         <motion.span 
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
+                          initial={{ opacity: 0, x: -5 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -5 }}
                           className="text-white_clinical font-mono font-black text-sm ml-4"
                         >
                           ↑ ↓
@@ -143,7 +144,7 @@ export default function Skills() {
           <motion.div 
             layout 
             className="flex flex-col bg-black_core/50 border border-gray_interference rounded-md shadow-sm overflow-hidden"
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            transition={{ type: "spring", stiffness: 120, damping: 20 }}
           >
             {/* IN Section */}
             <div className="flex gap-4 border-b border-gray_interference p-6 md:p-8">
