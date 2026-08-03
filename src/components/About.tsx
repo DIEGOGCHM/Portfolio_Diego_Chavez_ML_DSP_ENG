@@ -51,10 +51,10 @@ export default function About() {
   const itemHeight = 64; 
 
   const itemVariants = {
-    active: { opacity: 1, filter: "blur(0px)", scale: 1, transition: { duration: 0.3 } },
-    next1: { opacity: 0.5, filter: "blur(2px)", scale: 0.95, transition: { duration: 0.3 } },
-    next2: { opacity: 0.2, filter: "blur(4px)", scale: 0.9, transition: { duration: 0.3 } },
-    hidden: { opacity: 0, filter: "blur(8px)", scale: 0.8, transition: { duration: 0.3 } }
+    active: { opacity: 1, filter: "blur(0px)", scale: 1, color: "var(--white_clinical)", fontWeight: 700, transition: { duration: 0.3 } },
+    next1: { opacity: 0.5, filter: "blur(2px)", scale: 0.95, color: "var(--white_faded)", fontWeight: 500, transition: { duration: 0.3 } },
+    next2: { opacity: 0.2, filter: "blur(4px)", scale: 0.9, color: "var(--gray_signal)", fontWeight: 400, transition: { duration: 0.3 } },
+    hidden: { opacity: 0, filter: "blur(8px)", scale: 0.8, color: "var(--gray_signal)", fontWeight: 400, transition: { duration: 0.3 } }
   };
 
   return (
@@ -77,7 +77,7 @@ export default function About() {
               className="absolute w-full"
               initial={false}
               animate={{ y: `calc(150px - ${activeIndex * itemHeight}px - ${itemHeight / 2}px)` }}
-              transition={{ type: "spring", stiffness: 120, damping: 20, mass: 1 }}
+              transition={{ type: "spring", stiffness: 80, damping: 14, mass: 1 }}
             >
               {aboutData.map((item, idx) => {
                 const distance = Math.abs(idx - activeIndex);
@@ -87,7 +87,6 @@ export default function About() {
                 else if (distance === 2) state = "next2";
 
                 const isActive = idx === activeIndex;
-                const fontClass = isActive ? "font-bold text-white_clinical" : "font-medium text-white_faded";
 
                 return (
                   <motion.div 
@@ -96,19 +95,22 @@ export default function About() {
                     variants={itemVariants}
                     initial={false}
                     animate={state}
-                    whileHover={!isActive ? { opacity: 0.8, filter: "blur(0px)", scale: 0.98, transition: { duration: 0.2 } } : {}}
-                    className={`h-[64px] cursor-pointer flex items-center justify-between group origin-left ${fontClass}`}
+                    whileHover={!isActive ? { opacity: 0.9, filter: "blur(0px)", scale: 0.98, color: "var(--white_clinical)", transition: { duration: 0.2 } } : {}}
+                    className="h-[64px] cursor-pointer flex items-center justify-between group origin-left"
                   >
-                    <h3 className="text-base md:text-lg font-mono transition-colors duration-300">
+                    <motion.h3 
+                      className="text-base md:text-lg font-mono"
+                    >
                       {item.q}
-                    </h3>
+                    </motion.h3>
                     <AnimatePresence>
                       {isActive && (
                         <motion.span 
-                          initial={{ opacity: 0, x: -5 }}
+                          initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -5 }}
-                          className="text-white_clinical font-mono font-black text-sm ml-4"
+                          exit={{ opacity: 0, x: -10 }}
+                          className="font-mono font-black text-sm ml-4"
+                          style={{ color: "var(--white_clinical)" }}
                         >
                           ↑ ↓
                         </motion.span>
@@ -128,7 +130,7 @@ export default function About() {
           <motion.div 
             layout 
             className="flex flex-col bg-black_core/50 border border-gray_interference rounded-md shadow-sm overflow-hidden"
-            transition={{ type: "spring", stiffness: 120, damping: 20 }}
+            transition={{ type: "spring", stiffness: 100, damping: 18 }}
           >
             {/* IN Section */}
             <div className="flex gap-4 border-b border-gray_interference p-6 md:p-8">
