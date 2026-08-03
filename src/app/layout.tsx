@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${spaceMono.variable} font-mono bg-black_core text-white_clinical overflow-x-hidden min-h-screen cursor-none`}>
+      <body className={`${spaceMono.variable} font-mono bg-black_core text-white_clinical overflow-x-clip min-h-screen cursor-none`}>
         <CustomCursor />
         <Header />
         {children}

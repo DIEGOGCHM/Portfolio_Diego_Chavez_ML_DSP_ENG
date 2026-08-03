@@ -17,7 +17,7 @@ export default function Home() {
         </div>
 
         {/* Content with internal grid lines */}
-        <div className="p-6 md:p-12 xl:p-24 flex flex-col gap-12 relative overflow-hidden">
+        <div className="p-6 md:p-12 xl:p-24 flex flex-col gap-12 relative overflow-clip">
           {/* Vertical grid lines (absolute) to give it a blueprint feel */}
           <div className="absolute inset-0 pointer-events-none flex justify-evenly opacity-30 z-0">
             <div className="w-px h-full bg-gray_interference"></div>
