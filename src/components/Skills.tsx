@@ -82,7 +82,7 @@ export default function Skills() {
         
         {/* Left Menu: Scrolling List */}
         <div 
-          className="col-span-12 md:col-span-5 flex flex-col justify-center"
+          className="col-span-12 md:col-span-5 flex flex-col pt-8"
           onWheel={handleWheel}
         >
           <div 
@@ -141,7 +141,7 @@ export default function Skills() {
         </div>
         
         {/* Right Side: Terminal Window Style */}
-        <div className="col-span-12 md:col-span-7 flex flex-col justify-center">
+        <div className="col-span-12 md:col-span-7 flex flex-col pt-8">
           <h2 className="text-xl md:text-2xl text-white_clinical mb-6 font-mono tracking-tight">System Capabilities & Expertise.</h2>
           
           <motion.div 
