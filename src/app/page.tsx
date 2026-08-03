@@ -2,6 +2,7 @@ import { HeroCanvas } from "@/components/HeroCanvas";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
 import Projects from "@/components/Projects";
+import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 
 export default function Home() {
@@ -29,6 +30,7 @@ export default function Home() {
             <About />
             <Skills />
             <Projects />
+            <FAQ />
             <Contact />
           </div>
         </div>
