@@ -1,6 +1,37 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+
+const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!<>[]{}";
+
+function ScrambleText({ text, scrollYProgress }: { text: string; scrollYProgress: MotionValue<number> }) {
+  const displayText = useTransform(scrollYProgress, (latest) => {
+    if (latest >= 1) return text;
+    
+    // When completely out of view, return a static scrambled string
+    if (latest <= 0) {
+      return text.replace(/[^\s]/g, () => CHARS[Math.floor(Math.random() * CHARS.length)]);
+    }
+
+    const correctCount = Math.floor(latest * text.length);
+    let result = "";
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === ' ' || text[i] === '\n') {
+        result += text[i];
+        continue;
+      }
+      if (i < correctCount) {
+        result += text[i];
+      } else {
+        result += CHARS[Math.floor(Math.random() * CHARS.length)];
+      }
+    }
+    return result;
+  });
+
+  return <motion.span>{displayText}</motion.span>;
+}
 
 const skillsData = [
   {
@@ -37,6 +68,37 @@ const skillsData = [
   }
 ];
 
+function SkillRow({ item }: { item: { q: string, a: string } }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 95%", "center center"] 
+  });
+  
+  // Fade in the row during the first 20% of its scroll progress
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+  
+  const values = item.a.split(',').map(v => v.trim().toUpperCase());
+
+  return (
+    <motion.div ref={ref} style={{ opacity }} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-8">
+      {/* Left Column: Key */}
+      <div className="md:col-span-5 text-white_clinical tracking-wider text-sm md:text-base leading-loose">
+        <ScrambleText text={`[${item.q.toUpperCase()}]`} scrollYProgress={scrollYProgress} />
+      </div>
+      
+      {/* Right Column: Values */}
+      <div className="md:col-span-7 flex flex-col">
+        {values.map((val, vIdx) => (
+          <span key={vIdx} className="text-white_clinical text-sm md:text-base tracking-wider leading-loose">
+            <ScrambleText text={val} scrollYProgress={scrollYProgress} />
+          </span>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Skills() {
   return (
     <section 
@@ -46,27 +108,9 @@ export default function Skills() {
       <div className="max-w-5xl mx-auto px-6 md:px-12 xl:px-24">
         
         <div className="flex flex-col gap-10 md:gap-14">
-          {skillsData.map((item, idx) => {
-            const values = item.a.split(',').map(v => v.trim().toUpperCase());
-            
-            return (
-              <div key={idx} className="grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-8">
-                {/* Left Column: Key */}
-                <div className="md:col-span-5 text-white_clinical tracking-wider text-sm md:text-base leading-loose">
-                  [{item.q.toUpperCase()}]
-                </div>
-                
-                {/* Right Column: Values */}
-                <div className="md:col-span-7 flex flex-col">
-                  {values.map((val, vIdx) => (
-                    <span key={vIdx} className="text-white_clinical text-sm md:text-base tracking-wider leading-loose">
-                      {val}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+          {skillsData.map((item, idx) => (
+            <SkillRow key={idx} item={item} />
+          ))}
         </div>
 
       </div>
