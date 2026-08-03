@@ -72,7 +72,7 @@ function SkillRow({ item }: { item: { q: string, a: string } }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 95%", "start 65%"] 
+    offset: ["start 95%", "end 90%"] 
   });
   
   // Fade in the row during the first 20% of its scroll progress
