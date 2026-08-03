@@ -11,8 +11,8 @@ export default function Home() {
       {/* Swiss grid wrapper that spans everything */}
       <div className="w-full max-w-[1600px] mx-auto border-x border-gray_interference flex flex-col relative min-h-screen">
         
-        {/* Full screen Hero block bounded by grid */}
-        <div className="w-full h-screen border-b border-gray_interference relative">
+        {/* Scroll-scrubbed Hero block bounded by grid */}
+        <div className="w-full relative border-b border-gray_interference">
           <HeroCanvas />
         </div>
 
