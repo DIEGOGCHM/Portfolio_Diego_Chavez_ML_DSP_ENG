@@ -96,8 +96,6 @@ export default function About() {
                   else if (distance === 1) state = "next1";
                   else if (distance === 2) state = "next2";
 
-                  const isActive = idx === activeIndex;
-
                   return (
                     <motion.div 
                       key={idx} 
