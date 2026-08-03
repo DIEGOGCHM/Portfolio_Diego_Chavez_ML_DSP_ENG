@@ -28,9 +28,8 @@ export default function Home() {
 
           <div className="relative z-10 flex flex-col gap-6 md:gap-12">
             <About />
-            <Skills />
-            <Projects />
             <FAQ />
+            <Projects />
             <Contact />
           </div>
         </div>
