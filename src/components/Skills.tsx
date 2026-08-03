@@ -67,10 +67,10 @@ export default function Skills() {
   const itemHeight = 64; 
 
   const itemVariants = {
-    active: { opacity: 1, filter: "blur(0px)", scale: 1, color: "var(--white_clinical)", fontWeight: 700, transition: { duration: 0.3 } },
-    next1: { opacity: 0.5, filter: "blur(2px)", scale: 0.95, color: "var(--white_faded)", fontWeight: 500, transition: { duration: 0.3 } },
-    next2: { opacity: 0.2, filter: "blur(4px)", scale: 0.9, color: "var(--gray_signal)", fontWeight: 400, transition: { duration: 0.3 } },
-    hidden: { opacity: 0, filter: "blur(8px)", scale: 0.8, color: "var(--gray_signal)", fontWeight: 400, transition: { duration: 0.3 } }
+    active: { opacity: 1, filter: "blur(0px)", color: "var(--white_clinical)", fontWeight: 700, transition: { duration: 0.3 } },
+    next1: { opacity: 0.5, filter: "blur(2px)", color: "var(--white_faded)", fontWeight: 500, transition: { duration: 0.3 } },
+    next2: { opacity: 0.2, filter: "blur(4px)", color: "var(--gray_signal)", fontWeight: 400, transition: { duration: 0.3 } },
+    hidden: { opacity: 0, filter: "blur(8px)", color: "var(--gray_signal)", fontWeight: 400, transition: { duration: 0.3 } }
   };
 
   return (
@@ -111,7 +111,7 @@ export default function Skills() {
                     variants={itemVariants}
                     initial={false}
                     animate={state}
-                    whileHover={!isActive ? { opacity: 0.9, filter: "blur(0px)", scale: 0.98, color: "var(--white_clinical)", transition: { duration: 0.2 } } : {}}
+                    whileHover={!isActive ? { opacity: 0.9, filter: "blur(0px)", color: "var(--white_clinical)", transition: { duration: 0.2 } } : {}}
                     className="h-[64px] cursor-pointer flex items-center justify-between group origin-left"
                   >
                     <motion.h3 
@@ -122,9 +122,10 @@ export default function Skills() {
                     <AnimatePresence>
                       {isActive && (
                         <motion.span 
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -10 }}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.2 }}
                           className="font-mono font-black text-sm ml-4"
                           style={{ color: "var(--white_clinical)" }}
                         >
@@ -146,7 +147,7 @@ export default function Skills() {
           <motion.div 
             layout 
             className="flex flex-col bg-black_core/50 border border-gray_interference rounded-md shadow-sm overflow-hidden"
-            transition={{ type: "spring", stiffness: 100, damping: 18 }}
+            transition={{ type: "spring", stiffness: 70, damping: 15, mass: 1 }}
           >
             {/* IN Section */}
             <div className="flex gap-4 border-b border-gray_interference p-6 md:p-8">
@@ -154,9 +155,10 @@ export default function Skills() {
                <AnimatePresence mode="popLayout">
                  <motion.span 
                    key={activeIndex}
-                   initial={{ opacity: 0, y: -10 }}
-                   animate={{ opacity: 1, y: 0 }}
-                   exit={{ opacity: 0, y: 10, transition: { duration: 0.1 } }}
+                   initial={{ opacity: 0, filter: "blur(4px)" }}
+                   animate={{ opacity: 1, filter: "blur(0px)" }}
+                   exit={{ opacity: 0, filter: "blur(4px)", transition: { duration: 0.15 } }}
+                   transition={{ duration: 0.4, ease: "easeOut" }}
                    className="uppercase text-white_clinical font-mono text-sm tracking-wider"
                  >
                    {skillsData[activeIndex].q}
@@ -172,10 +174,10 @@ export default function Skills() {
                    {!isChanging && (
                      <motion.span 
                        key={displayIndex}
-                       initial={{ opacity: 0, y: 5 }}
-                       animate={{ opacity: 1, y: 0 }}
-                       exit={{ opacity: 0, transition: { duration: 0.1 } }}
-                       transition={{ duration: 0.3 }}
+                       initial={{ opacity: 0, filter: "blur(4px)" }}
+                       animate={{ opacity: 1, filter: "blur(0px)" }}
+                       exit={{ opacity: 0, filter: "blur(4px)", transition: { duration: 0.15 } }}
+                       transition={{ duration: 0.4, ease: "easeOut" }}
                        className="font-sans text-white_faded leading-relaxed text-base md:text-lg block"
                      >
                        {skillsData[displayIndex].a}
