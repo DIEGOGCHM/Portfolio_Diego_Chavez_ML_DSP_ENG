@@ -178,7 +178,7 @@ export function HeroCanvas() {
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const ctx = canvas.getContext("2d", { alpha: false })!;
+        const ctx = canvas.getContext("2d")!;
 
         let time = 0;
         let smoothProgress = scrollProgressRef.current; // start where we are
