@@ -51,16 +51,16 @@ export default function About() {
   const itemHeight = 64; 
 
   const itemVariants = {
-    active: { opacity: 1, filter: "blur(0px)", color: "#000000", fontWeight: 700, scale: 1 },
-    next1: { opacity: 0.5, filter: "blur(2px)", color: "#666666", fontWeight: 500, scale: 0.95 },
-    next2: { opacity: 0.2, filter: "blur(4px)", color: "#AAAAAA", fontWeight: 400, scale: 0.9 },
+    active: { opacity: 1, filter: "blur(0px)", color: "#FFFFFF", fontWeight: 700, scale: 1 },
+    next1: { opacity: 0.5, filter: "blur(2px)", color: "#A0A0A0", fontWeight: 500, scale: 0.95 },
+    next2: { opacity: 0.2, filter: "blur(4px)", color: "#666666", fontWeight: 400, scale: 0.9 },
     hidden: { opacity: 0, filter: "blur(8px)", scale: 0.8 }
   };
 
   return (
     <section 
       id="about" 
-      className="w-screen relative left-1/2 -translate-x-1/2 bg-white text-black py-32 md:py-48 px-6 md:px-12 xl:px-24 overflow-hidden"
+      className="w-full bg-transparent text-white_clinical py-32 md:py-48 overflow-hidden"
     >
       <div className="grid grid-cols-12 gap-12 max-w-6xl mx-auto">
         
@@ -98,7 +98,7 @@ export default function About() {
                     transition={{ type: "spring", stiffness: 200, damping: 25 }}
                     className="h-[64px] cursor-pointer flex items-center justify-between group origin-left"
                   >
-                    <h3 className="text-base md:text-lg font-sans">
+                    <h3 className="text-base md:text-lg font-mono">
                       {item.q}
                     </h3>
                     <AnimatePresence>
@@ -107,7 +107,7 @@ export default function About() {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
-                          className="text-black font-sans font-black text-sm ml-4"
+                          className="text-white_clinical font-mono font-black text-sm ml-4"
                         >
                           ↑ ↓
                         </motion.span>
@@ -122,23 +122,23 @@ export default function About() {
         
         {/* Right Side: Terminal Window Style */}
         <div className="col-span-12 md:col-span-7 flex flex-col justify-center">
-          <h2 className="text-xl md:text-2xl text-black mb-6 font-serif tracking-tight">Author Metadata.</h2>
+          <h2 className="text-xl md:text-2xl text-white_clinical mb-6 font-mono tracking-tight">Author Metadata.</h2>
           
           <motion.div 
             layout 
-            className="flex flex-col bg-white border border-[#EAEAEA] rounded-md shadow-sm overflow-hidden"
+            className="flex flex-col bg-black_core/50 border border-gray_interference rounded-md shadow-sm overflow-hidden"
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
             {/* IN Section */}
-            <div className="flex gap-4 border-b border-[#EAEAEA] p-6 md:p-8">
-               <span className="text-gray-400 font-mono text-sm tracking-widest mt-0.5">IN:</span>
-               <AnimatePresence mode="wait">
+            <div className="flex gap-4 border-b border-gray_interference p-6 md:p-8">
+               <span className="text-gray_signal font-mono text-sm tracking-widest mt-0.5">IN:</span>
+               <AnimatePresence mode="popLayout">
                  <motion.span 
                    key={activeIndex}
-                   initial={{ opacity: 0 }}
-                   animate={{ opacity: 1 }}
-                   exit={{ opacity: 0, transition: { duration: 0.1 } }}
-                   className="uppercase text-black font-mono text-sm tracking-wider"
+                   initial={{ opacity: 0, y: -10 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   exit={{ opacity: 0, y: 10, transition: { duration: 0.1 } }}
+                   className="uppercase text-white_clinical font-mono text-sm tracking-wider"
                  >
                    {aboutData[activeIndex].q}
                  </motion.span>
@@ -146,18 +146,18 @@ export default function About() {
             </div>
             
             {/* OUT Section */}
-            <motion.div layout className="flex gap-4 p-6 md:p-8 min-h-[150px]">
-               <span className="text-gray-400 font-mono text-sm tracking-widest mt-1">OUT:</span>
-               <div className="flex-1">
-                 <AnimatePresence mode="wait">
+            <motion.div layout className="flex gap-4 p-6 md:p-8">
+               <span className="text-gray_signal font-mono text-sm tracking-widest mt-1">OUT:</span>
+               <div className="flex-1 relative">
+                 <AnimatePresence mode="popLayout">
                    {!isChanging && (
                      <motion.span 
                        key={displayIndex}
-                       initial={{ opacity: 0 }}
-                       animate={{ opacity: 1 }}
+                       initial={{ opacity: 0, y: 5 }}
+                       animate={{ opacity: 1, y: 0 }}
                        exit={{ opacity: 0, transition: { duration: 0.1 } }}
                        transition={{ duration: 0.3 }}
-                       className="font-serif text-black leading-relaxed text-base md:text-lg inline-block"
+                       className="font-sans text-white_faded leading-relaxed text-base md:text-lg block"
                      >
                        {aboutData[displayIndex].a}
                      </motion.span>
