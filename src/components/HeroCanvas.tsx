@@ -84,9 +84,22 @@ export function HeroCanvas() {
         canvas.width = w;
         canvas.height = h;
 
-        const initSystem = async () => {
-            await document.fonts.ready;
+        const createSprites = (color: string) => {
+            return WAV_FILENAMES.map((text) => {
+                const c = document.createElement("canvas");
+                const ctx = c.getContext("2d")!;
+                ctx.font = "12px monospace";
+                const w = ctx.measureText(text).width;
+                c.width = w + 4;
+                c.height = 16;
+                ctx.font = "12px monospace";
+                ctx.fillStyle = color;
+                ctx.fillText(text, 0, 12);
+                return c;
+            });
+        };
 
+        const initSystem = () => {
             const maskCanvas = document.createElement("canvas");
             maskCanvas.width = w;
             maskCanvas.height = h;
@@ -107,7 +120,7 @@ export function HeroCanvas() {
             });
 
             const imageData = mctx.getImageData(0, 0, w, h).data;
-            const step = isMobile ? 4 : 7;
+            const step = isMobile ? 4 : 6;
             const targets: { x: number, y: number }[] = [];
 
             for (let y = 0; y < h; y += step) {
@@ -119,8 +132,19 @@ export function HeroCanvas() {
                 }
             }
 
-            targets.sort(() => Math.random() - 0.5);
+            // O(N) Fisher-Yates shuffle for instant particle target distribution
+            for (let i = targets.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const temp = targets[i];
+                targets[i] = targets[j];
+                targets[j] = temp;
+            }
 
+            if (cachedTextsRef.current.length === 0) {
+                cachedTextsRef.current = createSprites(themeColor);
+            }
+
+            const spriteCount = cachedTextsRef.current.length || WAV_FILENAMES.length;
             const pArray: Particle[] = [];
             const targetScale = isMobile ? (fontSize / 100) * 0.28 : (fontSize / 100) * 0.31;
             for (let i = 0; i < targets.length; i++) {
@@ -140,7 +164,7 @@ export function HeroCanvas() {
                     scale: 1,
                     x: rx,
                     y: ry,
-                    canvasIndex: Math.floor(Math.random() * cachedTextsRef.current.length),
+                    canvasIndex: Math.floor(Math.random() * spriteCount),
                     jitterOffset: Math.random() * Math.PI * 2
                 });
             }
@@ -150,13 +174,20 @@ export function HeroCanvas() {
 
         initSystem();
 
+        // Optionally update text mask if custom fonts finish loading after boot
+        if (typeof document !== "undefined" && document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => {
+                initSystem();
+            });
+        }
+
         const handleResize = () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [themeColor]);
 
     // Mouse tracking
     useEffect(() => {

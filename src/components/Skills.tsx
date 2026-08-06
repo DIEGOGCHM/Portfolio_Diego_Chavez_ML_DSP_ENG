@@ -1,18 +1,35 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useMemo, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*!<>[]{}";
 
+// Deterministic scramble generator for SSR and initial hydration parity
+function getDeterministicScramble(text: string): string {
+  let result = "";
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === ' ' || text[i] === '\n') {
+      result += text[i];
+    } else {
+      const idx = (text.charCodeAt(i) * 17 + i * 11) % CHARS.length;
+      result += CHARS[idx];
+    }
+  }
+  return result;
+}
+
 function ScrambleText({ text, scrollYProgress }: { text: string; scrollYProgress: MotionValue<number> }) {
+  const [isMounted, setIsMounted] = useState(false);
+  const staticScramble = useMemo(() => getDeterministicScramble(text), [text]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const displayText = useTransform(scrollYProgress, (latest) => {
     if (latest >= 1) return text;
-    
-    // When completely out of view, return a static scrambled string
-    if (latest <= 0) {
-      return text.replace(/[^\s]/g, () => CHARS[Math.floor(Math.random() * CHARS.length)]);
-    }
+    if (latest <= 0) return staticScramble;
 
     const correctCount = Math.floor(latest * text.length);
     let result = "";
@@ -24,11 +41,16 @@ function ScrambleText({ text, scrollYProgress }: { text: string; scrollYProgress
       if (i < correctCount) {
         result += text[i];
       } else {
-        result += CHARS[Math.floor(Math.random() * CHARS.length)];
+        const charIdx = (text.charCodeAt(i) + Math.floor(latest * 100) + i) % CHARS.length;
+        result += CHARS[charIdx];
       }
     }
     return result;
   });
+
+  if (!isMounted) {
+    return <span>{staticScramble}</span>;
+  }
 
   return <motion.span>{displayText}</motion.span>;
 }

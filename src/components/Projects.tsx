@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { gsap } from "gsap";
 
 import img1 from "../../assets/cosmos_1019079168.jpeg";
 import img2 from "../../assets/cosmos_1049549194.jpeg";
@@ -141,6 +142,19 @@ const projects: ProjectItem[] = [
         { type: 'video', src: '/projects/human_xy_pad/pts_loop.mp4', title: 'Sensing & Pointer Loop' },
         { type: 'video', src: '/projects/human_xy_pad/IMG_9040.mov', title: 'Field Testing Log' }
     ]
+  },
+  {
+    title: "SplitGrain",
+    type: "Granular Synthesizer & DSP Engine",
+    number: "05",
+    description: "A virtual synthesizer (VST3/AU/Standalone) built in C++20/JUCE that combines stochastic granular synthesis with an advanced real-time Tonal/Transient Spectral Separation (TSS/HPSS) algorithm.",
+    longDescription: "Designed and implemented an 8-voice polyphonic granular virtual synthesizer with real-time Tonal/Transient spectral separation. Developed a DSP algorithm using 2048-point STFT, 2D spectro-temporal median filtering, and 2nd-order phase acceleration tracking to avoid phase artifacts. Optimized the audio processing thread to guarantee real-time performance (zero dynamic memory allocations and lock-free structures). Designed a stochastic granular engine with probability distributions and continuous grain envelope morphing.",
+    tags: ["C++20", "JUCE 7", "DSP", "Granular Synthesis", "CMake"],
+    github: "https://github.com/DIEGOGCHM",
+    demo: null,
+    link: "/splitgrain",
+    color: "bg-purple-500",
+    image: img10.src
   }
 ];
 
@@ -226,7 +240,7 @@ function BlueprintTabViewer({ project, onExpand }: { project: ProjectItem; onExp
                 <img 
                   src="/projects/human_xy_pad/Planos1.png" 
                   alt="Plan 01 Spatial Framework" 
-                  className="max-w-full max-h-full object-contain theme-invert group-hover:scale-105 transition-transform duration-500" 
+                  className="max-w-full max-h-full object-contain theme-invert" 
                 />
               </div>
               <div className="mt-4 pt-3 border-t border-gray_interference flex justify-between items-center text-xs text-white_faded">
@@ -252,7 +266,7 @@ function BlueprintTabViewer({ project, onExpand }: { project: ProjectItem; onExp
                 <img 
                   src="/projects/human_xy_pad/Planos2.png" 
                   alt="Plan 02 Hardware Wiring" 
-                  className="max-w-full max-h-full object-contain theme-invert group-hover:scale-105 transition-transform duration-500" 
+                  className="max-w-full max-h-full object-contain theme-invert" 
                 />
               </div>
               <div className="mt-4 pt-3 border-t border-gray_interference flex justify-between items-center text-xs text-white_faded">
@@ -287,7 +301,7 @@ function BlueprintTabViewer({ project, onExpand }: { project: ProjectItem; onExp
               <img 
                 src={selectedPlan === 'plan1' ? '/projects/human_xy_pad/Planos1.png' : '/projects/human_xy_pad/Planos2.png'} 
                 alt="Human XY Pad Blueprint Schematic" 
-                className="max-w-full max-h-full object-contain theme-invert group-hover:scale-105 transition-transform duration-700" 
+                className="max-w-full max-h-full object-contain theme-invert" 
               />
             </div>
             
@@ -332,6 +346,119 @@ function BlueprintTabViewer({ project, onExpand }: { project: ProjectItem; onExp
   );
 }
 
+interface SplitTextRowProps {
+  project: ProjectItem;
+  isActive: boolean;
+  onHover: () => void;
+  onClick: () => void;
+}
+
+const SplitTextRow = React.memo(function SplitTextRow({ project, isActive, onHover, onClick }: SplitTextRowProps) {
+  const line1Ref = useRef<HTMLDivElement>(null);
+  const line2Ref = useRef<HTMLDivElement>(null);
+  const line1CharsRef = useRef<NodeListOf<Element> | null>(null);
+  const line2CharsRef = useRef<NodeListOf<Element> | null>(null);
+  const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const fullText = `${project.number} // ${project.title}`;
+
+  useEffect(() => {
+    if (line1Ref.current) line1CharsRef.current = line1Ref.current.querySelectorAll(".char-span");
+    if (line2Ref.current) line2CharsRef.current = line2Ref.current.querySelectorAll(".char-span");
+  }, [fullText]);
+
+  const handleMouseEnter = useCallback(() => {
+    // Fast GSAP animation runs immediately
+    const line1Chars = line1CharsRef.current || line1Ref.current?.querySelectorAll(".char-span");
+    const line2Chars = line2CharsRef.current || line2Ref.current?.querySelectorAll(".char-span");
+
+    if (line1Chars && line2Chars) {
+      gsap.killTweensOf([line1Chars, line2Chars]);
+      gsap.timeline()
+        .to(line1Chars, { yPercent: -100, duration: 0.3, ease: "power3.out", stagger: 0.012 }, 0)
+        .to(line2Chars, { yPercent: -100, duration: 0.3, ease: "power3.out", stagger: 0.012 }, 0);
+    }
+
+    // Debounce background state change slightly for ultra-smooth scrolling
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+    hoverTimerRef.current = setTimeout(() => {
+      onHover();
+    }, 40);
+  }, [onHover]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+
+    const line1Chars = line1CharsRef.current || line1Ref.current?.querySelectorAll(".char-span");
+    const line2Chars = line2CharsRef.current || line2Ref.current?.querySelectorAll(".char-span");
+
+    if (line1Chars && line2Chars) {
+      gsap.killTweensOf([line1Chars, line2Chars]);
+      gsap.timeline()
+        .to(line1Chars, { yPercent: 0, duration: 0.25, ease: "power2.inOut", stagger: 0.008 }, 0)
+        .to(line2Chars, { yPercent: 0, duration: 0.25, ease: "power2.inOut", stagger: 0.008 }, 0);
+    }
+  }, []);
+
+  const renderSplitLetters = useCallback((text: string, isLine2 = false) => {
+    const words = text.split(" ");
+    return words.map((word, wIdx) => (
+      <span key={wIdx} className="inline-block whitespace-nowrap">
+        {word.split("").map((char, cIdx) => (
+          <span
+            key={cIdx}
+            className={`inline-block transition-colors duration-200 char-span ${
+              isLine2
+                ? 'text-green_signal font-bold'
+                : isActive ? 'text-green_signal font-bold' : 'text-white_clinical/80 group-hover:text-white_clinical'
+            }`}
+            style={{ willChange: "transform", transform: "translateZ(0)" }}
+          >
+            {char}
+          </span>
+        ))}
+        {wIdx < words.length - 1 && (
+          <span className="inline-block whitespace-pre">&nbsp;</span>
+        )}
+      </span>
+    ));
+  }, [isActive]);
+
+  const line1Letters = useMemo(() => renderSplitLetters(fullText, false), [fullText, renderSplitLetters]);
+  const line2Letters = useMemo(() => renderSplitLetters(fullText, true), [fullText, renderSplitLetters]);
+
+  return (
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+      className={`group relative overflow-hidden py-4 px-4 md:px-6 cursor-pointer border-b border-gray_interference/30 transition-all duration-300 font-mono ${
+        isActive
+          ? "bg-black_layer/80 border-l-2 border-l-green_signal shadow-sm opacity-100"
+          : "hover:bg-black_layer/40 border-l-2 border-l-transparent opacity-60 hover:opacity-100"
+      }`}
+    >
+      <div className="relative h-6 md:h-7 overflow-hidden flex items-center">
+        {/* Line 1: Visible by default */}
+        <div
+          ref={line1Ref}
+          className="absolute inset-0 flex items-center text-xs md:text-sm uppercase tracking-widest whitespace-nowrap"
+        >
+          {line1Letters}
+        </div>
+
+        {/* Line 2: Duplicated for hover reveal */}
+        <div
+          ref={line2Ref}
+          className="absolute inset-0 flex items-center text-xs md:text-sm uppercase tracking-widest whitespace-nowrap translate-y-full"
+        >
+          {line2Letters}
+        </div>
+      </div>
+    </div>
+  );
+});
+
 export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [viewState, setViewState] = useState(0); // 0: Overview, 1: Detail, 2: Gallery
@@ -339,36 +466,32 @@ export default function Projects() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // Independent high-performance mouse tracking per window
-  const handleWindowMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    e.currentTarget.style.setProperty('--mouse-x', x.toString());
-    e.currentTarget.style.setProperty('--mouse-y', y.toString());
-  };
 
-  const handleWindowMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Reset to center
-    e.currentTarget.style.setProperty('--mouse-x', '0.5');
-    e.currentTarget.style.setProperty('--mouse-y', '0.5');
-  };
 
-  // Handle infinite scroll loop
-    const handleScroll = () => {
-      if (scrollRef.current) {
-        const scrollPosition = scrollRef.current.scrollTop;
-        const windowHeight = window.innerHeight;
-        const index = Math.round(scrollPosition / windowHeight);
-        
-        if (index !== activeIndex) {
-          setActiveIndex(index);
-          setViewState(0); // Reset view state when changing projects
-        }
-      }
-    };
+  const handleHoverProject = useCallback((originalIndex: number) => {
+    setActiveIndex((prev) => (prev === originalIndex ? prev : originalIndex));
+  }, []);
 
-  // Initial scroll position to the middle to allow scrolling up immediately
+  // Seamless Infinite Scroll Loop Handler
+  const handleInfiniteScroll = useCallback(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const { scrollTop, scrollHeight, clientHeight } = container;
+    const totalSets = 8;
+    const singleSetHeight = scrollHeight / totalSets;
+    const threshold = singleSetHeight;
+
+    if (scrollTop < threshold) {
+      // Near top boundary: jump 3 sets down
+      container.scrollTop += singleSetHeight * 3;
+    } else if (scrollTop + clientHeight > scrollHeight - threshold) {
+      // Near bottom boundary: jump 3 sets up
+      container.scrollTop -= singleSetHeight * 3;
+    }
+  }, []);
+
+  // Initial scroll position to the middle for immediate seamless bidirectional scroll
   useEffect(() => {
     if (scrollRef.current) {
         scrollRef.current.scrollTop = scrollRef.current.scrollHeight / 2;
@@ -386,47 +509,28 @@ export default function Projects() {
       className="w-full h-screen bg-background relative flex flex-col-reverse md:flex-row overflow-hidden border-y border-gray_interference font-mono"
     >
       
-      {/* Left Column: Infinite Thumbnail List */}
+      {/* Left Column: Typography Split-Text Project List */}
       <div 
         ref={scrollRef}
-        onScroll={handleScroll}
-        className="w-full md:w-1/4 h-[30vh] md:h-full overflow-y-auto hide-scrollbar border-t md:border-t-0 md:border-r border-gray_interference bg-background relative z-20"
-        style={{ scrollBehavior: 'auto' }} // Disable smooth scrolling for seamless jumping
+        onScroll={handleInfiniteScroll}
+        className="w-full md:w-1/3 lg:w-1/4 h-[35vh] md:h-full overflow-y-auto hide-scrollbar overscroll-contain border-t md:border-t-0 md:border-r border-gray_interference bg-background relative z-20"
       >
-        <div className="py-[10vh] md:py-[40vh] flex flex-col gap-4 px-4 md:px-8">
+        <div className="py-[6vh] md:py-[25vh] flex flex-col">
             {displayProjects.map((project, i) => {
                 const originalIndex = i % projects.length;
                 const isActive = activeIndex === originalIndex;
 
                 return (
-                    <div 
-                        key={i} 
-                        onClick={() => setActiveIndex(originalIndex)}
-                        className={`flex items-center gap-4 cursor-pointer group transition-all duration-500 ${isActive ? 'opacity-100' : 'opacity-40 hover:opacity-80'}`}
-                    >
-                        {/* Thumbnail / Indicator */}
-                        <div className={`relative transition-all duration-700 ease-out flex-shrink-0 ${isActive ? 'w-10 h-10 md:w-12 md:h-12 rounded-full' : 'w-16 h-16 md:w-20 md:h-20 rounded-none'}`}>
-                            <div className={`absolute inset-0 transition-all duration-700 ease-out ${isActive ? 'bg-green_signal rounded-full' : 'bg-gray_interference'}`}>
-                                {!isActive && (
-                                    <img 
-                                        src={project.image} 
-                                        alt={project.title} 
-                                        className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 transition-all duration-500"
-                                    />
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Title & Type (Only visible when active or hovering) */}
-                        <div className={`flex flex-col transition-all duration-500 overflow-hidden ${isActive ? 'max-w-[300px] opacity-100 translate-x-0' : 'max-w-0 opacity-0 -translate-x-2 group-hover:max-w-[300px] group-hover:opacity-50 group-hover:translate-x-0'}`}>
-                            <span className="text-[10px] text-gray_signal uppercase tracking-widest mb-1 whitespace-nowrap">
-                                {project.type}
-                            </span>
-                            <span className="text-sm md:text-base font-bold uppercase text-foreground whitespace-nowrap overflow-hidden text-ellipsis">
-                                {project.title}
-                            </span>
-                        </div>
-                    </div>
+                  <SplitTextRow
+                    key={i}
+                    project={project}
+                    isActive={isActive}
+                    onHover={() => handleHoverProject(originalIndex)}
+                    onClick={() => {
+                      setActiveIndex(originalIndex);
+                      setViewState(1);
+                    }}
+                  />
                 );
             })}
         </div>
@@ -444,38 +548,32 @@ export default function Projects() {
                     key={idx}
                     className={`absolute inset-0 transition-opacity duration-1000 ease-in-out flex flex-col justify-end p-6 md:p-16 ${isActive ? 'opacity-100 pointer-events-auto z-10' : 'opacity-0 pointer-events-none z-0'}`}
                 >
-                    {/* Immersive Background Gallery (Window Scan Effect) */}
-                    <div className={`absolute inset-0 w-full h-full p-2 md:p-4 grid grid-cols-4 grid-rows-2 gap-1 md:gap-2 transition-transform duration-[20s] ease-out ${isActive ? 'scale-105' : 'scale-100'}`}>
-                        {/* Get a unique slice of 5 images from the pool for each project (indices swapped for 0 and 2) */}
-                        {(() => {
-                            const startIndex = [8, 4, 2, 0][idx % 4];
-                            return [...allImages.slice(startIndex), ...allImages.slice(0, startIndex)].slice(0, 5);
-                        })().map((img, i) => {
-                            // Perfect 4x2 grid math: 1 large (2x2), 4 small (1x1)
-                            const isLarge = i === 0;
-                            
-                            return (
-                                <div 
-                                    key={i}
-                                    onMouseMove={handleWindowMouseMove}
-                                    onMouseLeave={handleWindowMouseLeave}
-                                    className={`relative cursor-crosshair overflow-hidden border border-gray_interference/10 ${isLarge ? 'col-span-2 row-span-2' : 'col-span-1 row-span-1'}`}
-                                    style={{ '--mouse-x': '0.5', '--mouse-y': '0.5' } as React.CSSProperties}
-                                >
-                                    {/* The image is much larger (150%) to allow significant panning travel */}
-                                    <img 
-                                        src={img.src} 
-                                        alt={`gallery element ${i}`} 
-                                        className="absolute inset-0 w-[150%] h-[150%] max-w-none object-cover transition-transform duration-300 ease-out" 
-                                        style={{
-                                            // -33.33% exact math for 150% size: 50% extra space / 150% total size = 33.33%
-                                            transform: `translate(calc(-33.33% * var(--mouse-x)), calc(-33.33% * var(--mouse-y)))`
-                                        }}
-                                    />
-                                </div>
-                            );
-                        })}
-                    </div>
+                    {/* Immersive Background Gallery */}
+                    {isActive && (
+                      <div className="absolute inset-0 w-full h-full p-2 md:p-4 grid grid-cols-4 grid-rows-2 gap-1 md:gap-2">
+                          {/* Get a unique slice of 5 images from the pool for each project (indices swapped for 0 and 2) */}
+                          {(() => {
+                              const startIndex = [8, 4, 2, 0][idx % 4];
+                              return [...allImages.slice(startIndex), ...allImages.slice(0, startIndex)].slice(0, 5);
+                          })().map((img, i) => {
+                              // Perfect 4x2 grid math: 1 large (2x2), 4 small (1x1)
+                              const isLarge = i === 0;
+                              
+                              return (
+                                  <div 
+                                      key={i}
+                                      className={`relative overflow-hidden border border-gray_interference/10 ${isLarge ? 'col-span-2 row-span-2' : 'col-span-1 row-span-1'}`}
+                                  >
+                                      <img 
+                                          src={img.src} 
+                                          alt={`gallery element ${i}`} 
+                                          className="w-full h-full object-cover" 
+                                      />
+                                  </div>
+                              );
+                          })}
+                      </div>
+                    )}
                     
                     {/* Gradient Overlays for Readability */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black_core via-black_core/90 to-transparent opacity-100 pointer-events-none" />
@@ -623,9 +721,9 @@ export default function Projects() {
                                                          onClick={() => setLightboxAsset(asset)}
                                                      >
                                                          {asset.type === 'video' ? (
-                                                             <video src={asset.src} autoPlay loop muted playsInline className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105" />
+                                                             <video src={asset.src} autoPlay loop muted playsInline className="w-full h-auto object-cover" />
                                                          ) : (
-                                                             <img src={asset.src} alt={`Asset ${i}`} className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                                                             <img src={asset.src} alt={`Asset ${i}`} className="w-full h-auto object-cover" loading="lazy" />
                                                          )}
                                                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none flex items-center justify-center">
                                                              <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white mix-blend-difference border border-white px-4 py-2 font-mono text-xs uppercase tracking-widest bg-black/30 backdrop-blur-sm">

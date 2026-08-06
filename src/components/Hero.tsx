@@ -6,9 +6,9 @@ import { ArrowDown, Code, Cpu } from 'lucide-react';
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 py-24 overflow-hidden border-b-2 border-gray_interference">
-      {/* Brutalist accents */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-white_clinical/10 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-white_clinical/5 rounded-full blur-3xl -z-10" />
+      {/* Brutalist accents using hardware radial gradients */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,transparent_70%)] pointer-events-none -z-10" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[radial-gradient(circle,rgba(255,255,255,0.05)_0%,transparent_70%)] pointer-events-none -z-10" />
 
       <motion.div
         initial={{ opacity: 0, y: 50 }}
