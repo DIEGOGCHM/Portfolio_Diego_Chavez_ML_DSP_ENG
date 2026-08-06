@@ -7,8 +7,8 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 py-24 overflow-hidden border-b-2 border-gray_interference">
       {/* Brutalist accents */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-green_signal/10 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-green_signal/5 rounded-full blur-3xl -z-10" />
+      <div className="absolute top-0 right-0 w-64 h-64 bg-white_clinical/10 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-white_clinical/5 rounded-full blur-3xl -z-10" />
 
       <motion.div
         initial={{ opacity: 0, y: 50 }}
@@ -17,15 +17,15 @@ export default function Hero() {
         className="max-w-5xl mx-auto w-full z-10"
       >
         <div className="flex items-center gap-4 mb-6">
-          <div className="h-[2px] w-12 bg-green_signal"></div>
-          <p className="font-mono text-green_signal font-bold uppercase tracking-widest text-sm">
+          <div className="h-[2px] w-12 bg-white_clinical"></div>
+          <p className="font-mono text-white_clinical font-bold uppercase tracking-widest text-sm">
             Audio Innovation / ML / DSP
           </p>
         </div>
 
         <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9] text-foreground mb-8">
           Engineering <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-green_signal to-amber_decay">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white_clinical to-gray_signal">
             Next-Gen
           </span> <br />
           Audio
@@ -36,7 +36,7 @@ export default function Hero() {
         </p>
 
         <div className="flex flex-wrap gap-6">
-          <a href="#projects" className="bg-green_signal text-black_core px-8 py-4 font-mono font-bold uppercase tracking-wide transition-all flex items-center gap-2">
+          <a href="#projects" className="bg-white_clinical text-black_core px-8 py-4 font-mono font-bold uppercase tracking-wide transition-all flex items-center gap-2">
             View Projects <ArrowDown size={20} />
           </a>
           <a href="#contact" className="bg-transparent border-2 border-white_clinical text-white_clinical px-8 py-4 font-mono font-bold uppercase tracking-wide hover:bg-white_clinical hover:text-black_core transition-colors flex items-center gap-2">

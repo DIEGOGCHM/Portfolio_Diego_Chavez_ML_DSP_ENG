@@ -28,6 +28,7 @@ export function CustomCursor() {
 
     return (
         <div
+            id="custom-cursor"
             className={`fixed top-0 left-0 pointer-events-none z-[10000] w-6 h-6 transition-opacity duration-150 ${hidden ? 'opacity-0' : 'opacity-100'}`}
             style={{
                 transform: `translate3d(calc(var(--cursor-x) - 12px), calc(var(--cursor-y) - 12px), 0)`,

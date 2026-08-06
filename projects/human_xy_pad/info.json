@@ -1,34 +1,47 @@
 {
   "id": "04",
   "slug": "human_xy_pad",
-  "title": "Human X/Y Pad",
-  "subtitle": "Interactive Expressive Controller & Audio DSP",
+  "title": "Human XY Pad",
+  "subtitle": "Multineumatic Spatial Controller & Real-Time Granular Synthesis Interface",
   "category": "Human-Computer Interaction & DSP",
   "period": "May 2026 – Jul 2026",
+  "version": "1.0 (Final)",
   "type": "Interactive Hardware & Software Project",
-  "description": "An expressive human-computer interaction system that maps spatial motion and gestural input across two-dimensional X/Y boundaries to dynamic DSP audio synthesis and real-time parameters.",
-  "longDescription": "Human X/Y Pad is a physical and gestural control interface that transforms human motion across a two-dimensional X/Y spatial axis into fluid, continuous sound design control and digital signal processing. By capturing real-time positional data, velocity, and pressure dynamics, the system generates continuous parameter curves for spatial panning, filter modulation, wavetable morphing, and generative audio synthesis.",
+  "hardwareSW": "Arduino IDE (C++) / Max/MSP",
+  "description": "An interactive gestural control system and digital musical instrument that transforms physical 3D positioning and body movement into real-time audio DSP parameters and granular synthesis.",
+  "longDescription": "The Human XY Pad eliminates physical contact with traditional mechanical interfaces using an array of 6 ultrasonic sensors (HC-SR04) mounted on standardized rails and a modular granular synthesis engine in Max/MSP. The Arduino C++ microcontroller processes time-of-flight ultrasound signals, filters boundary noise, and calculates spatial multipoint averages across X and Y axes with sub-35ms latency. Axis X modulates the cutoff frequency of a low-pass filter (biquad~), while Axis Y controls the grain emission rate in Max/MSP.",
   "tags": [
+    "Arduino C++",
+    "Max/MSP",
+    "Granular Synthesis",
+    "HC-SR04 Sensors",
     "DSP",
-    "Gestural Control",
-    "Audio Synthesis",
-    "Interactive Systems",
-    "Sensors",
+    "Spatial Sensing",
     "Real-Time Audio"
+  ],
+  "architecture": {
+    "captureHardware": "Physical array of 6 ultrasonic sensors (HC-SR04) mounted on standardized rails delimiting a 2D spatial area (up to 150 cm per axis).",
+    "embeddedFirmware": "Arduino microcontroller (C++) responsible for pulse triggering (10 µs), echo timing (pulseIn), boundary noise filtering, and spatial multipoint averaging.",
+    "audioEngine": "Max/MSP patch featuring sample loading, grain generator (sub-patch p grano 10-100 ms duration), grain polyphony (Grand Random Pad Generator), and biquad~ / live.gain~ filtering."
+  },
+  "specifications": {
+    "equation": "Distance = (Duration Time × 0.0343) / 2",
+    "latency": "< 35 ms",
+    "baudRate": "9600 bps Serial over USB",
+    "sensingRange": "0 - 150 cm"
+  },
+  "roadmap": [
+    { "version": "v1.0 (Current)", "scope": "Deployed functional prototype with 6 ultrasonic sensors, Arduino C++ processing, and Max/MSP granular synthesis.", "timeline": "Deployed" },
+    { "version": "v2.0", "scope": "Implementation of laser Time-of-Flight (ToF) sensors and Open Sound Control (OSC) protocol over Wi-Fi/UDP.", "timeline": "Q3 2026" },
+    { "version": "v3.0", "scope": "Modular industrial chassis design and 3D spatial polyphony support (Z-axis with overhead LiDAR).", "timeline": "Q1 2027" }
   ],
   "github": "https://github.com/DIEGOGCHM",
   "demo": null,
   "link": "/human-xy-pad",
   "color": "bg-cyan_signal",
-  "coverImage": "/projects/human_xy_pad/IMG_8951.JPG",
-  "videoHeader": "/projects/human_xy_pad/promo_video.mp4",
-  "assets": [
-    { "type": "video", "src": "/projects/human_xy_pad/promo_video.mp4" },
-    { "type": "video", "src": "/projects/human_xy_pad/pts_loop.mp4" },
-    { "type": "video", "src": "/projects/human_xy_pad/IMG_9040.mov" },
-    { "type": "image", "src": "/projects/human_xy_pad/IMG_8951.JPG" },
-    { "type": "image", "src": "/projects/human_xy_pad/IMG_8952.JPG" },
-    { "type": "image", "src": "/projects/human_xy_pad/IMG_8953.JPG" },
-    { "type": "image", "src": "/projects/human_xy_pad/IMG_8954.JPG" }
+  "coverImage": "/projects/human_xy_pad/Planos1.png",
+  "blueprints": [
+    { "id": "plan1", "title": "Plan 01 // Spatial Framework & Sensor Array", "src": "/projects/human_xy_pad/Planos1.png" },
+    { "id": "plan2", "title": "Plan 02 // Hardware Wiring & Signal Topology", "src": "/projects/human_xy_pad/Planos2.png" }
   ]
 }

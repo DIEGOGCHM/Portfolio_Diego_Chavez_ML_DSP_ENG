@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const WAV_FILENAMES = [
     "DSP", "ML", "FFT", "TENSOR", "NODE", "BUF", "C++", "PY", "WAV", "01", "10", "AI", "SYS", "CORE",
@@ -39,6 +39,20 @@ export function HeroCanvas() {
     // Core physics structures
     const particlesRef = useRef<Particle[]>([]);
     const cachedTextsRef = useRef<HTMLCanvasElement[]>([]);
+    const [themeColor, setThemeColor] = useState("rgba(17, 17, 17, 0.95)");
+
+    // Watch for theme changes
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+        const updateColor = () => {
+            const isDark = document.documentElement.getAttribute("data-theme") === "terminal";
+            setThemeColor(isDark ? "rgba(237, 237, 237, 0.95)" : "rgba(17, 17, 17, 0.95)");
+        };
+        updateColor();
+        const observer = new MutationObserver(updateColor);
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+        return () => observer.disconnect();
+    }, []);
 
     // Prepare text sprites
     useEffect(() => {
@@ -52,12 +66,12 @@ export function HeroCanvas() {
             c.width = w + 4;
             c.height = 16;
             ctx.font = "12px monospace";
-            ctx.fillStyle = "rgba(17, 17, 17, 0.95)"; // Black letters to match the light theme
+            ctx.fillStyle = themeColor;
             ctx.fillText(text, 0, 12);
             return c;
         });
         cachedTextsRef.current = cache;
-    }, []);
+    }, [themeColor]);
 
     // Main system initialization
     useEffect(() => {

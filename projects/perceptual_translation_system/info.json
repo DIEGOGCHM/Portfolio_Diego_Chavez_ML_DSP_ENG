@@ -1,0 +1,24 @@
+{
+  "id": "01",
+  "slug": "perceptual_translation_system",
+  "title": "Perceptual Translation System",
+  "subtitle": "Multimodal Audio Intelligence",
+  "category": "Multimodal Audio Intelligence",
+  "period": "Feb 2026 – May 2026",
+  "type": "Independent / Academic Research",
+  "description": "A computational system that interprets visual input and translates it into structured acoustic inference through multimodal embeddings. It acts as a translator between modalities, bridging the gap between what is seen and what is heard.",
+  "longDescription": "This system introduces a Perceptual Translation Pipeline that analyzes visual input, extracts structured semantic meaning, converts it into sound-oriented queries, retrieves audio from a local indexed library, and refines results using acoustic characteristics. The architecture is composed of modular layers (Vision Model, Interpretation Layer, Retrieval System, Acoustic Refinement) that transform visual data into sound-relevant embeddings and structured retrieval outputs.",
+  "tags": [
+    "Vision Transformer",
+    "GPT-J",
+    "LionCLAP",
+    "Semantic Audio",
+    "Python"
+  ],
+  "github": "https://github.com/DIEGOGCHM",
+  "demo": null,
+  "link": "/architecture",
+  "color": "bg-green_signal",
+  "coverImage": "/assets/cosmos_59952192.jpeg",
+  "videoHeader": "/projects/perceptual_translation_system/VIDEO promo video.mp4"
+}

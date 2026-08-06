@@ -33,24 +33,55 @@ const ExternalLinkIcon = () => (
   </svg>
 );
 
-const projects = [
+interface ProjectAsset {
+  type: string;
+  src: string;
+  title?: string;
+  description?: string;
+  headphonesRequired?: boolean;
+  invertInDarkMode?: boolean;
+}
+
+interface ProjectItem {
+  title: string;
+  type: string;
+  number: string;
+  description: string;
+  longDescription?: string;
+  tags: string[];
+  github: string;
+  demo?: string | null;
+  link: string;
+  color: string;
+  image: string;
+  videoHeader?: string;
+  walkthroughVideo?: string;
+  isBlueprintProject?: boolean;
+  assets?: ProjectAsset[];
+}
+
+const projects: ProjectItem[] = [
   {
-    title: "Image-to-Sound AI",
-    type: "Multimodal AI & Sound Design",
+    title: "Perceptual Translation System",
+    type: "Multimodal Audio Intelligence",
     number: "01",
-    description: "A standalone multimodal system that transforms cinematic images into structured sound design suggestions using computer vision, language models, CLAP embeddings, and Stable Audio. Features a local-first PySide6 desktop interface.",
-    tags: ["PyTorch", "CLAP", "Stable Audio", "Computer Vision", "Python"],
+    description: "A computational system that interprets visual input and translates it into structured acoustic inference through multimodal embeddings. It acts as a translator between modalities, bridging the gap between what is seen and what is heard.",
+    longDescription: "A computational system designed to run 100% locally. It interprets visual input and text prompts, translating them into structured foley/ambience categories, retrieving indexed sounds using FAISS/CLAP, and synthesizing new sound effects natively via Stable Audio Open. The system retrieves sound. It generates it. It organizes it. It integrates it. It separates semantic understanding from acoustic reality, allowing for precise retrieval and perceptual fidelity.",
+    tags: ["Vision Transformer", "GPT-J", "LionCLAP", "Semantic Audio", "Python"],
     github: "https://github.com/DIEGOGCHM",
     demo: null,
     link: "/architecture",
     color: "bg-green_signal",
-    image: img11.src
+    image: img11.src,
+    videoHeader: '/projects/perceptual_translation_system/VIDEO promo video.mp4',
+    walkthroughVideo: '/projects/perceptual_translation_system/VIDEO WT FInal.mp4'
   },
   {
     title: "Del Otro Lado",
     type: "Interactive Art Installation",
     number: "02",
     description: "An immersive sensory art installation exploring migration and reactive perception. Combines electromechanical automation, Arduino/Raspberry Pi sensor integration, and dynamic narrative soundscapes.",
+    longDescription: "Designed and developed an immersive interactive installation exploring themes of migration, cultural displacement, and reactive perception through narrative sound design and multisensory interaction. The project combined embedded hardware systems (Arduino, Raspberry Pi), reactive soundscapes, and electromechanical automation to create emotionally driven experiences centered around discomfort, immersion, and audience participation.",
     tags: ["Arduino", "Raspberry Pi", "Embedded", "Sound Design", "Sensors"],
     github: "https://github.com/DIEGOGCHM",
     demo: null,
@@ -81,6 +112,7 @@ const projects = [
     type: "Dataset Curation & ML Support",
     number: "03",
     description: "Design, recording, and curation of high-quality audio datasets for training audio-text contrastive models. Includes workflows for cleaning, labeling, and semantic alignment.",
+    longDescription: "Designed, recorded, and curated specialized high-fidelity audio datasets for training and fine-tuning contrastive audio-text models (such as CLAP). Developed modular processing pipelines for audio cleaning, segmentation, metadata tagging, and semantic text alignment based on critical listening and sound engineering principles.",
     tags: ["Dataset Design", "Audio Curation", "Contrastive Learning", "CLAP"],
     github: "https://github.com/DIEGOGCHM",
     demo: null,
@@ -89,25 +121,25 @@ const projects = [
     image: img1.src
   },
   {
-    title: "Human X/Y Pad",
-    type: "Interactive Gestural Audio Controller",
+    title: "Human XY Pad",
+    type: "Multineumatic Spatial Controller & Granular Audio DSP",
     number: "04",
-    description: "An expressive human-computer interaction system that maps spatial motion and gestural input across two-dimensional X/Y boundaries to dynamic DSP audio synthesis and real-time parameters.",
-    tags: ["DSP", "Gestural Control", "Audio Synthesis", "Interactive Systems", "Sensors"],
+    description: "An interactive gestural control system and digital musical instrument that transforms physical 3D positioning and body movement into real-time audio DSP parameters and granular synthesis using 6 ultrasonic sensors (HC-SR04) and Arduino C++.",
+    longDescription: "The Human XY Pad eliminates physical contact with traditional mechanical interfaces using an array of 6 ultrasonic sensors mounted on standardized rails and a modular granular synthesis engine in Max/MSP. The Arduino C++ microcontroller processes time-of-flight ultrasound signals, filters boundary noise, and calculates spatial multipoint averages across X and Y axes with sub-35ms latency. Axis X modulates the cutoff frequency of a low-pass filter (biquad~), while Axis Y controls the grain emission rate.",
+    tags: ["Arduino C++", "Max/MSP", "Granular Synthesis", "HC-SR04 Sensors", "DSP", "Spatial Sensing"],
     github: "https://github.com/DIEGOGCHM",
     demo: null,
     link: "/human-xy-pad",
     color: "bg-cyan_signal",
-    image: "/projects/human_xy_pad/IMG_8951.JPG",
+    image: "/projects/human_xy_pad/Planos1.png",
     videoHeader: '/projects/human_xy_pad/promo_video.mp4',
+    isBlueprintProject: true,
     assets: [
-        { type: 'video', src: '/projects/human_xy_pad/promo_video.mp4' },
-        { type: 'video', src: '/projects/human_xy_pad/pts_loop.mp4' },
-        { type: 'video', src: '/projects/human_xy_pad/IMG_9040.mov' },
-        { type: 'image', src: '/projects/human_xy_pad/IMG_8951.JPG' },
-        { type: 'image', src: '/projects/human_xy_pad/IMG_8952.JPG' },
-        { type: 'image', src: '/projects/human_xy_pad/IMG_8953.JPG' },
-        { type: 'image', src: '/projects/human_xy_pad/IMG_8954.JPG' }
+        { type: 'image', src: '/projects/human_xy_pad/Planos1.png', title: 'Plan 01 // 2D Spatial Framework & Sensor Array', invertInDarkMode: true },
+        { type: 'image', src: '/projects/human_xy_pad/Planos2.png', title: 'Plan 02 // Hardware Wiring & Signal Topology', invertInDarkMode: true },
+        { type: 'video', src: '/projects/human_xy_pad/promo_video.mp4', title: 'Real-Time Performance Demo' },
+        { type: 'video', src: '/projects/human_xy_pad/pts_loop.mp4', title: 'Sensing & Pointer Loop' },
+        { type: 'video', src: '/projects/human_xy_pad/IMG_9040.mov', title: 'Field Testing Log' }
     ]
   }
 ];
@@ -115,10 +147,195 @@ const projects = [
 // Duplicate the array many times to simulate infinite scroll
 const displayProjects = Array(8).fill(projects).flat();
 
+function BlueprintTabViewer({ project, onExpand }: { project: ProjectItem; onExpand: (asset: ProjectAsset) => void }) {
+  const [selectedPlan, setSelectedPlan] = useState<'plan1' | 'plan2' | 'all'>('plan1');
+
+  return (
+    <div className="w-full min-h-screen bg-background text-white_clinical font-mono relative overflow-y-auto p-4 sm:p-8 md:p-16 flex flex-col items-center z-50">
+      <div className="relative z-20 w-full max-w-7xl flex flex-col gap-8 pb-16">
+        
+        {/* CAD Technical Header */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between border-b border-gray_interference pb-6 gap-6">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-foreground animate-pulse" />
+              <span className="text-gray_signal text-xs uppercase tracking-widest font-bold">
+                CAD SCHEMATIC VIEWER // {project.number}
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white_clinical">
+              {project.title} Schematics
+            </h2>
+            <p className="text-xs md:text-sm text-white_faded mt-1 max-w-2xl">
+              Transparent hardware blueprints and signal topology diagrams.
+            </p>
+          </div>
+
+          {/* Interactive Plan Selector Buttons */}
+          <div className="flex flex-wrap gap-2 p-1 border border-gray_interference rounded-md bg-black_core/50 shadow-sm">
+            <button
+              onClick={() => setSelectedPlan('plan1')}
+              className={`px-4 py-2 text-xs uppercase tracking-widest font-bold transition-all rounded-sm cursor-pointer ${
+                selectedPlan === 'plan1' 
+                  ? 'bg-foreground text-background' 
+                  : 'text-white_clinical/80 hover:text-white_clinical hover:bg-black_layer/50'
+              }`}
+            >
+              Plan 01: Spatial Frame
+            </button>
+            <button
+              onClick={() => setSelectedPlan('plan2')}
+              className={`px-4 py-2 text-xs uppercase tracking-widest font-bold transition-all rounded-sm cursor-pointer ${
+                selectedPlan === 'plan2' 
+                  ? 'bg-foreground text-background' 
+                  : 'text-white_clinical/80 hover:text-white_clinical hover:bg-black_layer/50'
+              }`}
+            >
+              Plan 02: Hardware Wiring
+            </button>
+            <button
+              onClick={() => setSelectedPlan('all')}
+              className={`px-4 py-2 text-xs uppercase tracking-widest font-bold transition-all rounded-sm cursor-pointer ${
+                selectedPlan === 'all' 
+                  ? 'bg-foreground text-background' 
+                  : 'text-white_clinical/80 hover:text-white_clinical hover:bg-black_layer/50'
+              }`}
+            >
+              Dual Schematic View
+            </button>
+          </div>
+        </div>
+
+        {/* Blueprint Canvas Rendering */}
+        {selectedPlan === 'all' ? (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+            {/* Plan 1 Card */}
+            <div 
+              onClick={() => onExpand({ type: 'image', src: '/projects/human_xy_pad/Planos1.png', title: 'Plan 01 // 2D Spatial Framework & Sensor Array', invertInDarkMode: true })}
+              className="relative group cursor-zoom-in border border-gray_interference bg-black_core/50 p-6 rounded-md overflow-hidden hover:border-gray_signal transition-all shadow-sm"
+            >
+              <div className="flex items-center justify-between border-b border-gray_interference pb-3 mb-4">
+                <span className="text-xs text-foreground font-bold uppercase tracking-widest">
+                  PLAN 01 // 2D SPATIAL FRAMEWORK
+                </span>
+                <span className="text-[10px] text-gray_signal border border-gray_interference px-2 py-0.5 rounded-sm">
+                  PNG TRANSPARENT
+                </span>
+              </div>
+              <div className="w-full h-80 flex items-center justify-center p-2 bg-background border border-gray_interference/50 rounded-sm">
+                <img 
+                  src="/projects/human_xy_pad/Planos1.png" 
+                  alt="Plan 01 Spatial Framework" 
+                  className="max-w-full max-h-full object-contain theme-invert group-hover:scale-105 transition-transform duration-500" 
+                />
+              </div>
+              <div className="mt-4 pt-3 border-t border-gray_interference flex justify-between items-center text-xs text-white_faded">
+                <span>Click to Fullscreen Inspect</span>
+                <span className="text-foreground font-bold uppercase">6-Sensor Array</span>
+              </div>
+            </div>
+
+            {/* Plan 2 Card */}
+            <div 
+              onClick={() => onExpand({ type: 'image', src: '/projects/human_xy_pad/Planos2.png', title: 'Plan 02 // Hardware Wiring & Signal Topology', invertInDarkMode: true })}
+              className="relative group cursor-zoom-in border border-gray_interference bg-black_core/50 p-6 rounded-md overflow-hidden hover:border-gray_signal transition-all shadow-sm"
+            >
+              <div className="flex items-center justify-between border-b border-gray_interference pb-3 mb-4">
+                <span className="text-xs text-foreground font-bold uppercase tracking-widest">
+                  PLAN 02 // HARDWARE WIRING & TOPOLOGY
+                </span>
+                <span className="text-[10px] text-gray_signal border border-gray_interference px-2 py-0.5 rounded-sm">
+                  PNG TRANSPARENT
+                </span>
+              </div>
+              <div className="w-full h-80 flex items-center justify-center p-2 bg-background border border-gray_interference/50 rounded-sm">
+                <img 
+                  src="/projects/human_xy_pad/Planos2.png" 
+                  alt="Plan 02 Hardware Wiring" 
+                  className="max-w-full max-h-full object-contain theme-invert group-hover:scale-105 transition-transform duration-500" 
+                />
+              </div>
+              <div className="mt-4 pt-3 border-t border-gray_interference flex justify-between items-center text-xs text-white_faded">
+                <span>Click to Fullscreen Inspect</span>
+                <span className="text-foreground font-bold uppercase">Arduino / Max MSP</span>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div 
+            onClick={() => onExpand({ 
+              type: 'image', 
+              src: selectedPlan === 'plan1' ? '/projects/human_xy_pad/Planos1.png' : '/projects/human_xy_pad/Planos2.png', 
+              title: selectedPlan === 'plan1' ? 'Plan 01 // 2D Spatial Framework & Sensor Array' : 'Plan 02 // Hardware Wiring & Signal Topology',
+              invertInDarkMode: true
+            })}
+            className="relative w-full border border-gray_interference bg-black_core/50 p-6 sm:p-10 md:p-16 rounded-md cursor-zoom-in group overflow-hidden shadow-sm hover:border-gray_signal transition-all flex flex-col"
+          >
+            {/* Technical CAD Overlay Annotations */}
+            <div className="w-full flex justify-between items-start mb-6 border-b border-gray_interference pb-4">
+              <div className="text-[11px] text-foreground font-bold tracking-widest flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-foreground" />
+                AXIS ORIGIN [0.00, 0.00]
+              </div>
+              <div className="text-[11px] text-foreground font-bold tracking-widest">
+                MAX BOUNDARY: 150.00 cm
+              </div>
+            </div>
+
+            {/* Main Transparent Schematic Image */}
+            <div className="w-full h-[55vh] flex items-center justify-center p-4 bg-background border border-gray_interference/50 rounded-sm mb-6">
+              <img 
+                src={selectedPlan === 'plan1' ? '/projects/human_xy_pad/Planos1.png' : '/projects/human_xy_pad/Planos2.png'} 
+                alt="Human XY Pad Blueprint Schematic" 
+                className="max-w-full max-h-full object-contain theme-invert group-hover:scale-105 transition-transform duration-700" 
+              />
+            </div>
+            
+            <div className="w-full flex justify-between items-end">
+              <div className="text-[11px] text-gray_signal">
+                LAYER: TRANSPARENT VECTOR PNG (1:1 CAD SCALE)
+              </div>
+              <div className="text-[11px] text-foreground font-bold tracking-widest flex items-center gap-2">
+                <span>FULLSCREEN LIGHTBOX</span>
+                <ExternalLinkIcon />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Blueprint Specifications HUD Grid */}
+        <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 text-xs mt-2">
+          <div className="border border-gray_interference bg-black_core/50 p-4 rounded-md shadow-sm">
+            <span className="text-gray_signal text-[10px] block uppercase font-bold tracking-widest mb-2 border-b border-gray_interference pb-1">CAPACITY & SENSORS</span>
+            <span className="text-foreground font-bold block">6x HC-SR04 Ultrasound</span>
+            <span className="text-white_faded text-[10px]">Dual Axis Rail System</span>
+          </div>
+          <div className="border border-gray_interference bg-black_core/50 p-4 rounded-md shadow-sm">
+            <span className="text-gray_signal text-[10px] block uppercase font-bold tracking-widest mb-2 border-b border-gray_interference pb-1">TIME-OF-FLIGHT MATH</span>
+            <span className="text-foreground font-bold block">d = (t × 0.0343) / 2</span>
+            <span className="text-white_faded text-[10px]">Sea level sound speed constant</span>
+          </div>
+          <div className="border border-gray_interference bg-black_core/50 p-4 rounded-md shadow-sm">
+            <span className="text-gray_signal text-[10px] block uppercase font-bold tracking-widest mb-2 border-b border-gray_interference pb-1">SERIAL PROTOCOL</span>
+            <span className="text-foreground font-bold block">Arduino C++ (&lt; 35ms)</span>
+            <span className="text-white_faded text-[10px]">9600 bps USB stream</span>
+          </div>
+          <div className="border border-gray_interference bg-black_core/50 p-4 rounded-md shadow-sm">
+            <span className="text-gray_signal text-[10px] block uppercase font-bold tracking-widest mb-2 border-b border-gray_interference pb-1">DSP SYNTHESIS</span>
+            <span className="text-foreground font-bold block">Max/MSP Granular Patch</span>
+            <span className="text-white_faded text-[10px]">biquad~ LPF & Grain Rate</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
 export default function Projects() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [viewState, setViewState] = useState(0); // 0: Overview, 1: Detail, 2: Gallery
-  const [lightboxAsset, setLightboxAsset] = useState<{type: string, src: string} | null>(null);
+  const [lightboxAsset, setLightboxAsset] = useState<ProjectAsset | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -320,7 +537,7 @@ export default function Projects() {
                                     {project.description}
                                 </p>
                                 <p className="leading-relaxed text-white_clinical/70">
-                                    (Extended information, architecture schematics, and functional walkthroughs can be injected here for {project.title}. This overlay maintains the immersive background context while providing deeper technical insights natively inside the carousel.)
+                                    {project.longDescription || `(Extended information, architecture schematics, and functional walkthroughs can be injected here for ${project.title}. This overlay maintains the immersive background context while providing deeper technical insights natively inside the carousel.)`}
                                 </p>
                                 <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray_interference">
                                     {project.tags.map((tag, i) => (
@@ -329,72 +546,100 @@ export default function Projects() {
                                     </span>
                                     ))}
                                 </div>
-                                
-                                {/* Button to open Gallery (Sheet 3) if assets exist */}
-                                {project.assets && (
+                                                         {/* Button to open Gallery (Sheet 3) if assets exist */}
+                                {(project.assets || project.walkthroughVideo) && (
                                     <div className="mt-4">
-                                        <button 
-                                            onClick={() => setViewState(2)} 
-                                            className="inline-flex items-center gap-2 bg-white_clinical text-black_core px-6 py-3 font-mono text-xs uppercase tracking-widest font-bold hover:bg-green_signal transition-colors w-fit border-none cursor-pointer outline-none"
-                                        >
-                                            Show Visual Gallery
-                                            <ExternalLinkIcon />
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Content Layer (Scrollable Gallery - Sheet 3) */}
-                        <div className={`absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden bg-background transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-50 ${viewState === 2 && isActive ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-full pointer-events-none'}`}>
-                            
-                            {/* Header Section */}
-                            <div className="relative w-full h-[70vh] md:h-screen flex flex-col justify-center items-center p-6 md:p-16 pointer-events-none overflow-hidden">
-                                {/* Video Header */}
-                                {project.videoHeader && (
-                                    <video 
-                                        src={project.videoHeader} 
-                                        autoPlay loop muted playsInline
-                                        className="absolute inset-0 w-full h-full object-cover opacity-90"
-                                    />
-                                )}
-                                
-                                <div className="relative z-20 flex flex-col items-center justify-center text-center">
-                                    <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white leading-[0.85] mb-6 drop-shadow-sm mix-blend-difference">
-                                        {project.title}
-                                    </h2>
-                                    <p className="text-white mix-blend-difference uppercase tracking-widest font-bold text-xs md:text-sm">
-                                        Scroll for Editorial Gallery
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Masonry Gallery Section */}
-                            {project.assets && (
-                                <div className="w-full max-w-[1600px] mx-auto p-4 md:p-16 py-16 md:py-24 bg-background">
-                                    <div className="columns-1 md:columns-2 lg:columns-3 gap-4 md:gap-8 space-y-4 md:space-y-8">
-                                        {project.assets.map((asset, i) => (
-                                            <div 
-                                                key={i} 
-                                                className="break-inside-avoid relative overflow-hidden bg-gray_interference/20 group cursor-pointer"
-                                                onClick={() => setLightboxAsset(asset)}
+                                        {project.walkthroughVideo ? (
+                                            <button 
+                                                onClick={() => setLightboxAsset({ 
+                                                    type: 'video', 
+                                                    src: project.walkthroughVideo!,
+                                                    title: "System Walkthrough",
+                                                    description: "Functional overview and processing pipeline demonstration for the Perceptual Translation System.",
+                                                    headphonesRequired: true
+                                                })} 
+                                                className="inline-flex items-center gap-2 bg-white_clinical text-black_core px-6 py-3 font-mono text-xs uppercase tracking-widest font-bold hover:bg-green_signal transition-colors w-fit border-none cursor-pointer outline-none"
                                             >
-                                                {asset.type === 'video' ? (
-                                                    <video src={asset.src} autoPlay loop muted playsInline className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105" />
-                                                ) : (
-                                                    <img src={asset.src} alt={`Asset ${i}`} className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                                                )}
-                                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none flex items-center justify-center">
-                                                    <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white mix-blend-difference border border-white px-4 py-2 font-mono text-xs uppercase tracking-widest bg-black/30 backdrop-blur-sm">
-                                                        Expand
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
+                                                Watch Walkthrough
+                                                <ExternalLinkIcon />
+                                            </button>
+                                        ) : project.isBlueprintProject ? (
+                                            <button 
+                                                onClick={() => setViewState(2)} 
+                                                className="inline-flex items-center gap-2 bg-white_clinical text-black_core px-6 py-3 font-mono text-xs uppercase tracking-widest font-bold hover:bg-green_signal transition-colors w-fit border-none cursor-pointer outline-none shadow-lg"
+                                            >
+                                                View Technical Schematics
+                                                <ExternalLinkIcon />
+                                            </button>
+                                         ) : (
+                                             <button 
+                                                 onClick={() => setViewState(2)} 
+                                                 className="inline-flex items-center gap-2 bg-white_clinical text-black_core px-6 py-3 font-mono text-xs uppercase tracking-widest font-bold hover:bg-green_signal transition-colors w-fit border-none cursor-pointer outline-none"
+                                             >
+                                                 Show Visual Gallery
+                                                 <ExternalLinkIcon />
+                                             </button>
+                                         )}
+                                     </div>
+                                 )}
+                             </div>
+                         </div>
+
+                         {/* Content Layer (Scrollable Gallery / Blueprint Tab - Sheet 3) */}
+                         <div className={`absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden bg-background transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-50 ${viewState === 2 && isActive ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-full pointer-events-none'}`}>
+                             {project.isBlueprintProject ? (
+                                 <BlueprintTabViewer project={project} onExpand={(asset) => setLightboxAsset(asset)} />
+                             ) : (
+                                 <>
+                                     {/* Header Section */}
+                                     <div className="relative w-full h-[70vh] md:h-screen flex flex-col justify-center items-center p-6 md:p-16 pointer-events-none overflow-hidden">
+                                         {/* Video Header */}
+                                         {project.videoHeader && (
+                                             <video 
+                                                 src={project.videoHeader} 
+                                                 autoPlay loop muted playsInline
+                                                 className="absolute inset-0 w-full h-full object-cover opacity-90"
+                                             />
+                                         )}
+                                         
+                                         <div className="relative z-20 flex flex-col items-center justify-center text-center">
+                                             <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white leading-[0.85] mb-6 drop-shadow-sm mix-blend-difference">
+                                                 {project.title}
+                                             </h2>
+                                             <p className="text-white mix-blend-difference uppercase tracking-widest font-bold text-xs md:text-sm">
+                                                 Scroll for Editorial Gallery
+                                             </p>
+                                         </div>
+                                     </div>
+
+                                     {/* Masonry Gallery Section */}
+                                     {project.assets && (
+                                         <div className="w-full max-w-[1600px] mx-auto p-4 md:p-16 py-16 md:py-24 bg-background">
+                                             <div className="columns-1 md:columns-2 lg:columns-3 gap-4 md:gap-8 space-y-4 md:space-y-8">
+                                                 {project.assets.map((asset, i) => (
+                                                     <div 
+                                                         key={i} 
+                                                         className="break-inside-avoid relative overflow-hidden bg-gray_interference/20 group cursor-pointer"
+                                                         onClick={() => setLightboxAsset(asset)}
+                                                     >
+                                                         {asset.type === 'video' ? (
+                                                             <video src={asset.src} autoPlay loop muted playsInline className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105" />
+                                                         ) : (
+                                                             <img src={asset.src} alt={`Asset ${i}`} className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                                                         )}
+                                                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none flex items-center justify-center">
+                                                             <span className="opacity-0 group-hover:opacity-100 transition-opacity text-white mix-blend-difference border border-white px-4 py-2 font-mono text-xs uppercase tracking-widest bg-black/30 backdrop-blur-sm">
+                                                                 Expand
+                                                             </span>
+                                                         </div>
+                                                     </div>
+                                                 ))}
+                                             </div>
+                                         </div>
+                                     )}
+                                 </>
+                             )}
+                         </div>
                     </div>
 
                     {/* Explore / Back Toggle (Bottom Right) */}
@@ -447,6 +692,21 @@ export default function Projects() {
                 </svg>
             </button>
             <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
+                {lightboxAsset.headphonesRequired && (
+                    <div className="absolute top-4 left-4 md:top-8 md:left-8 bg-black/70 backdrop-blur-md border border-white/20 text-white px-4 py-2 md:px-5 md:py-3 font-mono text-[10px] md:text-xs uppercase tracking-widest flex items-center gap-3 rounded-sm shadow-xl pointer-events-auto z-10">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+                        </svg>
+                        Use Headphones
+                    </div>
+                )}
+                {lightboxAsset.description && (
+                    <div className="absolute bottom-8 left-4 md:bottom-12 md:left-12 bg-black/70 backdrop-blur-md border border-white/20 text-white p-4 md:p-5 max-w-xs md:max-w-sm font-mono text-xs leading-relaxed hidden sm:block rounded-sm shadow-xl pointer-events-auto z-10">
+                        <div className="text-green_signal font-bold mb-2 uppercase tracking-widest text-[10px] md:text-xs">{lightboxAsset.title}</div>
+                        <div className="opacity-80">{lightboxAsset.description}</div>
+                    </div>
+                )}
                 {lightboxAsset.type === 'video' ? (
                     <video 
                         src={lightboxAsset.src} 
@@ -457,7 +717,7 @@ export default function Projects() {
                     <img 
                         src={lightboxAsset.src} 
                         alt="Fullscreen view" 
-                        className="max-w-full max-h-full object-contain shadow-2xl pointer-events-auto" 
+                        className={`max-w-full max-h-full object-contain shadow-2xl pointer-events-auto ${lightboxAsset.invertInDarkMode ? 'theme-invert' : ''}`} 
                     />
                 )}
             </div>
@@ -473,6 +733,14 @@ export default function Projects() {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+        ${lightboxAsset ? `
+        #custom-cursor {
+            display: none !important;
+        }
+        * {
+            cursor: auto !important;
+        }
+        ` : ''}
       `}} />
     </section>
   );

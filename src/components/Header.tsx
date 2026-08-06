@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from "react";
 
 export function Header() {
-  const [theme, setTheme] = useState<"terminal" | "print">("terminal");
+  const [theme, setTheme] = useState<"terminal" | "print">("print");
 
   useEffect(() => {
-    // Check if there is a saved preference or default to terminal
+    // Check if there is a saved preference or default to print
     if (theme === "terminal") {
       document.documentElement.setAttribute("data-theme", "terminal");
     } else {

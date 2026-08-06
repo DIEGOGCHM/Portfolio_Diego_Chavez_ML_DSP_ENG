@@ -30,6 +30,11 @@
   --amber_decay: #C2A36B;
 }
 
+/* Invert images in dark mode */
+[data-theme='terminal'] .theme-invert {
+  filter: invert(1);
+}
+
 body {
   color: var(--foreground);
   background: var(--background);

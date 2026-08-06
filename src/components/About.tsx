@@ -85,8 +85,8 @@ export default function About() {
       ref={containerRef}
       className="w-full bg-transparent text-white_clinical h-[400vh]"
     >
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden px-4 sm:px-6 md:px-12 xl:px-24">
-        <div className="grid grid-cols-12 gap-6 md:gap-12 max-w-6xl mx-auto w-full">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-start pt-[15vh] md:pt-[25vh] overflow-hidden px-4 sm:px-6 md:px-12 xl:px-24">
+        <div className="grid grid-cols-12 gap-6 md:gap-12 max-w-6xl mx-auto w-full items-start">
           
           {/* Left Menu: Scrolling List */}
           <div className="col-span-12 md:col-span-5 flex flex-col pt-4 md:pt-8">
